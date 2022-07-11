@@ -10,7 +10,7 @@ jobs:
 
     # ENV variables specify variables that can be used through the steps in the workflow
     env:
-      IMAGE_NAME: Todo-App-Development-Image
+      IMAGE_NAME: immichaelpepper/todo-app-development-image
       PROJECT_ID: todo-app-development-356018
     steps:
       - name: Checkout
@@ -23,7 +23,7 @@ jobs:
           export_default_credentials: true
 
       - name: Build Docker Image
-        run: docker build -t $IMAGE_NAME:latest .
+        run: docker build . -t $IMAGE_NAME:latest 
 
       - name: Configure Docker Client
         run: |-
