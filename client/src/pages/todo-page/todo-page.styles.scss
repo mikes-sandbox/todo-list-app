@@ -1,0 +1,11 @@
+@import "../../common/variables.scss";
+
+
+.footer {
+  text-align: center;
+
+  &__note {
+    color: var(--color-text-1);
+    transition: color 1s;
+  }
+}

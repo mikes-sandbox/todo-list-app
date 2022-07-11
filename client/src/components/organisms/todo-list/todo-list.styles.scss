@@ -1,0 +1,93 @@
+@import "../../../common/mixins.scss";
+@import "../../../common/variables.scss";
+
+.todo-list-container {
+  box-shadow: var(--box-shadow);
+  transition: box-shadow 1s;
+  margin-bottom: 4.8rem;
+
+  @include respond(phone) {
+    margin-bottom: 9.6rem;
+  }
+}
+
+.todo-list {
+  &__list {
+    background: var(--color-surface);
+    color: var(--color-text-1);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    overflow: hidden;
+    transition: background 1s, color 1s;
+
+    .no-items {
+      padding: 4rem 2rem;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid var(--color-border);
+      transition: border 1s;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    position: relative;
+    align-items: center;
+    height: 5rem;
+    background: var(--color-surface);
+    color: var(--color-text-1);
+    padding: 0 2.4rem;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    transition: background 1s, color 1s;
+
+    .items-left {
+    }
+
+    .filter-options {
+      transition: background 1s;
+
+      .filter {
+        font-family: var(--default-fonts);
+        font-weight: bold;
+        margin-right: 1.6rem;
+        transition: color 0.3s;
+
+        &.active {
+          color: var(--color-bright-blue);
+        }
+
+        &:hover {
+          color: var(--color-text-active);
+        }
+      }
+
+      @include respond(phone) {
+        position: absolute;
+        top: 6.4rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: var(--color-surface);
+        border-radius: var(--border-radius);
+        left: 0;
+        height: 4.8rem;
+        box-shadow: var(--box-shadow);
+        transition: box-shadow 1s;
+        margin-bottom: 4.8rem;
+      }
+    }
+
+    .clear-completed {
+      transition: color 0.3s;
+      &:hover {
+        color: var(--color-text-active);
+      }
+    }
+
+    @include respond(phone) {
+    }
+  }
+}
