@@ -73,5 +73,4 @@ const mapStateToProps = createStructuredSelector({
     todoList: selectTodoList,
 });
 
-
 export default connect(mapStateToProps, null)(TodoList);

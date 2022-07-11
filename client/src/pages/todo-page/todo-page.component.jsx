@@ -6,7 +6,9 @@ import { addTodo } from "../../redux/todo/todo.actions";
 import TodoInput from "../../components/atoms/todo-input/todo-input.component";
 import TodoList from '../../components/organisms/todo-list/todo-list.component';
 
+
 const TodoPage = ({ addTodo }) => {
+
   const [newTodoString, setNewTodoString] = useState("");
 
   const handleSubmit = async (event) => {

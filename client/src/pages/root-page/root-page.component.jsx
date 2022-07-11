@@ -1,12 +1,12 @@
 import React from "react";
 
-import ThemeButton from "../../components/atoms/theme-button/theme-button";
 import TodoPage from "../todo-page/todo-page.component";
+import ThemeButton from "../../components/atoms/theme-button/theme-button";
 
 import "./root-page.styles.scss";
-import lightThemeLargeImg from "../../assets/bg-desktop-light.jpg";
-import lightThemeSmallImg from "../../assets/bg-mobile-light.jpg";
 import lightThemeIcon from "../../assets/icon-sun.svg";
+import lightThemeSmallImg from "../../assets/bg-mobile-light.jpg";
+import lightThemeLargeImg from "../../assets/bg-desktop-light.jpg";
 
 const RootPage = () => {
     return (
