@@ -15,7 +15,7 @@ env:
 jobs:
   build-push-gcr:
     permissions:
-      contents: "read"
+      contents: "write"
       id-token: "write"
 
     name: Build and Push to GCP
@@ -65,7 +65,6 @@ jobs:
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
-          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
           # NOTE: If using a pre-built image, update the image name here
           image: "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:latest"
 
