@@ -43,8 +43,7 @@ jobs:
           registry: "${{ env.GAR_LOCATION }}-docker.pkg.dev"
 
       - name: Build Docker Image
-        run: |-
-          docker build . -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.$IMAGE_NAME }}:latest"
+        run: docker build . -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.$IMAGE_NAME }}:latest"
 
       - name: Automatic Tagging of Releases
         id: increment-git-tag
