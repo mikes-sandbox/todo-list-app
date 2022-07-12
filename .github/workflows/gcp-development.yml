@@ -9,8 +9,8 @@ env:
   IMAGE_NAME: todo-app-development-image
   PROJECT_ID: todo-app-development-356018
   GAR_LOCATION: europe-west2
-  SERVICE: YOUR_SERVICE_NAME # TODO: update Cloud Run service name
-  REGION: YOUR_SERVICE_REGION # TODO: update Cloud Run service region
+  SERVICE: todo-app-development-image 
+  REGION: europe-west2 
 
 jobs:
   build-push-gcr:
@@ -55,5 +55,19 @@ jobs:
           GIT_TAG: ${{steps.increment-git-tag.outputs.git-tag}}
         run: |-
           docker tag "${{ env.IMAGE_NAME }}:latest" "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:latest"
-          docker tag "${{ env.IMAGE_NAME }}:latest" "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:$GIT_TAG"
+          docker tag "${{ env.IMAGE_NAME }}:latest" "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          docker tag "${{ env.IMAGE_NAME }}:latest" "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:${{ GIT_TAG }}"
           docker push --all-tags "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}"
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          # NOTE: If using a pre-built image, update the image name here
+          image: "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}"
+
+      # If required, use the Cloud Run url output in later steps
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
