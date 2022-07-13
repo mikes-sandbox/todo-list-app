@@ -36,7 +36,7 @@ jobs:
           registry: '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev'
 
       - name: Build Docker Image
-        run: docker build . -t '${{ secrets.IMAGE_NAME_PROD }}:latest'
+        run: docker build . -t '${{ secrets.IMAGE_NAME_PROD }}:latest' --build-arg GCP_ENV=production
 
       - name: Automatic Tagging of Releases
         id: increment-git-tag

@@ -36,7 +36,7 @@ jobs:
           registry: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev'
 
       - name: Build Docker Image
-        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest'
+        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest' --build-arg GCP_ENV=development
 
       - name: Push Docker Image to Artifact Registry
         env:

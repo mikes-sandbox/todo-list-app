@@ -1,5 +1,8 @@
 FROM node:lts-alpine
 
+ARG GCP_ENV
+ENV GCP_ENV $GCP_ENV
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -17,6 +20,6 @@ COPY server/ server/
 
 USER node
 
-CMD [ "npm", "start", "--prefix", "server" ]
+CMD ["GCP_ENV=$GCP_ENV", "npm", "start", "--prefix", "server" ]
 
 EXPOSE 8000
