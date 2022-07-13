@@ -5,3 +5,11 @@ export const addTodo = (todoList, newTodo) => {
     const todo = { name: newTodo, completed: false, id: uuid };
     return [...todoList, todo];
 };
+
+export const toggleTodoCompletion = (todoList, todoToToggle) => {
+    return todoList.map(todo =>
+        todo.id === todoToToggle.id
+            ? { ...todo, completed: !todo.completed }
+            : todo
+    );
+};

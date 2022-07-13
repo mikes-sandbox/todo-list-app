@@ -1,6 +1,6 @@
 import { EXAMPLE_TODOS } from "../../common/variables";
 import TodoActionTypes from "./todo.types";
-import { addTodo } from "./todo.utils";
+import { addTodo, toggleTodoCompletion } from "./todo.utils";
 
 const INITIAL_STATE = {
     todos: EXAMPLE_TODOS
@@ -13,6 +13,12 @@ const todoReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 todos: addTodo(state.todos, action.payload)
+            };
+
+        case TodoActionTypes.TOGGLE_TODO_COMPLETION:
+            return {
+                ...state,
+                todos: toggleTodoCompletion(state.todos, action.payload)
             };
 
         default:
