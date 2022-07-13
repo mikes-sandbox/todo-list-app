@@ -47,7 +47,7 @@ jobs:
         env:
           GIT_TAG: '${{steps.increment-git-tag.outputs.git-tag}}'
         run: |-
-          docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:latest"
+          docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:latest'
           docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:${{ github.sha }}'
           docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:$GIT_TAG'
           docker push --all-tags '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}'
