@@ -1,0 +1,66 @@
+---
+name: Build and Push Node image to Google Cloud Platform
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-push-gcr:
+    permissions:
+      contents: "write"
+      id-token: "write"
+
+    name: Build and Push to GCP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v0"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER_PROD }}' 
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT_PROD }}'
+
+      # Authenticate Docker to Google Cloud Artifact Registry
+      - name: Docker Auth
+        id: docker-auth
+        uses: "docker/login-action@v1"
+        with:
+          username: "oauth2accesstoken"
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev'
+
+      - name: Build Docker Image
+        run: docker build . -t '${{ secrets.IMAGE_NAME_PROD }}:latest'
+
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./.github/scripts/git_update.sh -v patch
+
+      - name: Push Docker Image to Artifact Registry
+        env:
+          GIT_TAG: '${{steps.increment-git-tag.outputs.git-tag}}'
+        run: |-
+          docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:latest"
+          docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:${{ github.sha }}'
+          docker tag '${{ secrets.IMAGE_NAME_PROD }}:latest' '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:$GIT_TAG'
+          docker push --all-tags '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}'
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: '${{ secrets.SERVICE_PROD }}'
+          region: '${{ secrets.REGION_PROD }}'
+          # NOTE: If using a pre-built image, update the image name here
+          image: '${{ secrets.GAR_LOCATION_PROD }}-docker.pkg.dev/${{ secrets.PROJECT_ID_PROD }}/images/${{ secrets.IMAGE_NAME_PROD }}:latest'
+
+      # If required, use the Cloud Run url output in later steps
+      - name: Show Output
+        run: echo '${{ steps.deploy.outputs.url }}'
