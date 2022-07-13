@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import './todo.styles.scss';
 import { ReactComponent as IconCheck } from '../../../assets/icon-check.svg';
 import { ReactComponent as IconCross } from '../../../assets/icon-cross.svg';
-import { toggleTodoCompletion } from '../../../redux/todo/todo.actions';
+import { deleteTodo, toggleTodoCompletion } from '../../../redux/todo/todo.actions';
 
 
-const Todo = ({ todo, toggleTodoCompletion }) => (
+const Todo = ({ todo, deleteTodo, toggleTodoCompletion }) => (
     <li className={`todo ${todo.completed ? 'completed' : ''}`} >
 
         <label
@@ -27,13 +27,15 @@ const Todo = ({ todo, toggleTodoCompletion }) => (
         </label>
 
         <button className="todo--close"
-            type="button">
+            type="button"
+            onClick={() => deleteTodo(todo)}>
             <IconCross></IconCross>
         </button>
     </li>
 );
 
 const mapDispatchToProps = dispatch => ({
+    deleteTodo: todo => dispatch(deleteTodo(todo)),
     toggleTodoCompletion: todo => dispatch(toggleTodoCompletion(todo)),
 });
 

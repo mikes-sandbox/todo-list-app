@@ -9,3 +9,8 @@ export const toggleTodoCompletion = todo => ({
     type: TodoActionTypes.TOGGLE_TODO_COMPLETION,
     payload: todo
 });
+
+export const deleteTodo = todo => ({
+    type: TodoActionTypes.DELETE_TODO,
+    payload: todo
+});

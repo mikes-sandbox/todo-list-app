@@ -13,3 +13,7 @@ export const toggleTodoCompletion = (todoList, todoToToggle) => {
             : todo
     );
 };
+
+export const deleteTodo = (todoList, todoToDelete) => {
+    return todoList.filter(todo => todo.id !== todoToDelete.id);
+};
