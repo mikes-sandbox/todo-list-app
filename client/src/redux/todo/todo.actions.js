@@ -14,3 +14,7 @@ export const deleteTodo = todo => ({
     type: TodoActionTypes.DELETE_TODO,
     payload: todo
 });
+
+export const clearCompleted = () => ({
+    type: TodoActionTypes.CLEAR_COMPLETED,
+});

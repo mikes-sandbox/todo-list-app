@@ -1,6 +1,6 @@
 import TodoActionTypes from "./todo.types";
 import { EXAMPLE_TODOS } from "../../common/variables";
-import { addTodo, toggleTodoCompletion, deleteTodo } from "./todo.utils";
+import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted } from "./todo.utils";
 
 
 const INITIAL_STATE = {
@@ -26,6 +26,12 @@ const todoReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 todos: deleteTodo(state.todos, action.payload)
+            };
+
+        case TodoActionTypes.CLEAR_COMPLETED:
+            return {
+                ...state,
+                todos: clearCompleted(state.todos)
             };
 
         default:

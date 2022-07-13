@@ -17,3 +17,7 @@ export const toggleTodoCompletion = (todoList, todoToToggle) => {
 export const deleteTodo = (todoList, todoToDelete) => {
     return todoList.filter(todo => todo.id !== todoToDelete.id);
 };
+
+export const clearCompleted = (todoList) => {
+    return todoList.filter(todo => !todo.completed);
+};
