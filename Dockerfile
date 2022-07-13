@@ -20,6 +20,6 @@ COPY server/ server/
 
 USER node
 
-CMD ["GCP_ENV=${GCP_ENV}", "npm", "start", "--prefix", "server" ]
+CMD [ "npm", "start", "--prefix", "server" ]
 
 EXPOSE 8000
