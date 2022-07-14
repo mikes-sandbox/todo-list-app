@@ -38,7 +38,7 @@ jobs:
           registry: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev'
 
       - name: Build Docker Image
-        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest' --build-arg 'GCP_ENV=${env.GCP_ENV}'
+        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest' --build-arg 'GCP_ENV=${{env.GCP_ENV}}'
 
       - name: Push Docker Image to Artifact Registry
         env:
@@ -54,7 +54,6 @@ jobs:
         with:
           service: '${{ secrets.SERVICE_DEV }}'
           region: '${{ secrets.REGION_DEV }}'
-          # NOTE: If using a pre-built image, update the image name here
           image: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
           secrets: '/app/server/secrets/secrets-${{env.GCP_ENV}}.env=todo-list-app-development:latest'
 
