@@ -6,6 +6,7 @@ on:
     branches: [development]
 env:
   GCP_ENV: development
+  
 jobs:
   build-push-gcr:
     permissions:
@@ -55,7 +56,7 @@ jobs:
           region: '${{ secrets.REGION_DEV }}'
           # NOTE: If using a pre-built image, update the image name here
           image: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
-          secrets: '/app/server/secrets/secrets-${env.GCP_ENV}.env=todo-list-app-development:latest'
+          secrets: '/app/server/secrets/secrets-${{env.GCP_ENV}}.env=todo-list-app-development:latest'
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
