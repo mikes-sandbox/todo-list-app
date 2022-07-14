@@ -1,8 +1,5 @@
 FROM node:lts-alpine
 
-ARG GCP_ENV
-ENV GCP_ENV $GCP_ENV
-
 WORKDIR /app
 
 COPY package*.json ./
