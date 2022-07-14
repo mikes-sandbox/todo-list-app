@@ -44,7 +44,7 @@ console.log(process.env);
 //   done(null, id);
 // });
 
-// const app = express();
+const app = express();
 
 // app.use(helmet());
 // app.use(cookieSession({
@@ -55,13 +55,13 @@ console.log(process.env);
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-// app.use(cors({
-//   origin: 'http://localhost:3000',
-// }));
-// app.use(morgan('combined'));
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
+app.use(morgan('combined'));
 
-// app.use(express.json());
-// app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // app.get('/auth/google',
 //   passport.authenticate('google', {
@@ -92,9 +92,9 @@ console.log(process.env);
 //   return res.send('Failed to log in!');
 // });
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-// });
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 // function checkLoggedIn(req, res, next) {
 //   console.log('Current user is:', req.user);
