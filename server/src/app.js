@@ -7,7 +7,7 @@ const passport = require('passport');
 const { Strategy } = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 
-// require('dotenv').config({ path: path.join(__dirname, '..', 'secrets', `secrets-${process.env.GCP_ENV}.env`) });
+require('dotenv').config({ path: path.join(__dirname, '..', 'secrets', `secrets-${process.env.GCP_ENV}.env`) });
 console.log(process.env);
 
 // const config = {
