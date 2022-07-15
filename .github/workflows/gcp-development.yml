@@ -4,7 +4,9 @@ name: Build and Push Node image to Google Cloud Platform
 on:
   push:
     branches: [development]
-
+env:
+  GCP_ENV: development
+  
 jobs:
   build-push-gcr:
     permissions:
@@ -18,6 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+
       - name: Google Auth
         id: auth
         uses: "google-github-actions/auth@v0"
@@ -25,6 +28,7 @@ jobs:
           token_format: "access_token"
           workload_identity_provider: '${{ secrets.WIF_PROVIDER }}' 
           service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+
 
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
@@ -35,8 +39,10 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev'
 
+
       - name: Build Docker Image
-        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest'
+        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest' --build-arg 'GCP_ENV=${{env.GCP_ENV}}'
+
 
       - name: Push Docker Image to Artifact Registry
         env:
@@ -53,9 +59,9 @@ jobs:
         with:
           service: '${{ secrets.SERVICE_DEV }}'
           region: '${{ secrets.REGION_DEV }}'
-          # NOTE: If using a pre-built image, update the image name here
           image: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
-          secrets: '/app/server/secrets/secrets-development.env=todo-list-app-development:latest'
+          # secrets: '/app/server/secrets/secrets-${{env.GCP_ENV}}.env=todo-list-app-development:latest'
+
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
