@@ -41,7 +41,7 @@ jobs:
 
 
       - name: Build Docker Image
-        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest' --build-arg 'GCP_ENV=${{env.GCP_ENV}}'
+        run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest'
 
 
       - name: Push Docker Image to Artifact Registry
@@ -61,8 +61,7 @@ jobs:
           region: '${{ secrets.REGION_DEV }}'
           image: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
           secrets: '/app/server/secrets/secrets-${{env.GCP_ENV}}.env=todo-list-app-development:latest'
-          env_vars_file: '../../server/local.env'
-
+          env_vars: 'GCP_ENV=${{env.GCP_ENV}}'
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
