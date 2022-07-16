@@ -22,7 +22,7 @@ const { CLIENT_PATH } = require('./utils/config');
 console.log(process.env);
 
 const AUTH_OPTIONS = {
-  callbackURL: '/auth/google/callback',
+  callbackURL: `${CLIENT_PATH}/auth/google/callback`,
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
 };
