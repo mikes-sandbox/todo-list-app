@@ -56,4 +56,3 @@ module.exports = {
     CLIENT_PATH: _getNonEmptyString('CLIENT_PATH'),
     AUTH_SERVER: _getNonEmptyString('AUTH_SERVER'),
 };
-
