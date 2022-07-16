@@ -22,7 +22,7 @@ const RootPage = () => {
                 <div className="header">
                     <h1 className="header__title"
                     onClick={()=>navigateLogin}>
-                        <a href="./auth/google">Google login</a>
+                        <a href="http://localhost:8000/auth/google">Google login</a>
                         </h1>
                     <ThemeButton iconPath={lightThemeIcon} />
                 </div>

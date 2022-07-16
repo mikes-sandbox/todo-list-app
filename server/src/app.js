@@ -7,16 +7,19 @@ const passport = require('passport');
 const { Strategy } = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 
-require('dotenv').config({ path: path.join(__dirname, '..', 'secrets', `secrets-${process.env.GCP_ENV}.env`) });
-console.log(process.env);
+require('dotenv').config({ path: path.join(__dirname, '..', `env-vars-${process.env.NODE_ENV || 'local'}.env`) });
 
+const getSecrets = require('./utils/get-secrets');
 const config = {
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET,
-  COOKIE_KEY_1: process.env.COOKIE_KEY_1,
-  COOKIE_KEY_2: process.env.COOKIE_KEY_2,
-  CLIENT_PATH: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
-};
+  CLIENT_ID,
+  CLIENT_SECRET,
+  COOKIE_KEY_1,
+  COOKIE_KEY_2,
+} = getSecrets();
+
+const { CLIENT_PATH } = require('./utils/config');
+
+console.log(process.env);
 
 const AUTH_OPTIONS = {
   callbackURL: '/auth/google/callback',
@@ -70,8 +73,8 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: `${config.CLIENT_PATH}/failure`,
-    successRedirect: `${config.CLIENT_PATH}/`,
+    failureRedirect: `${CLIENT_PATH}/failure`,
+    successRedirect: `${CLIENT_PATH}/`,
     session: true,
   }),
   (req, res) => {
@@ -81,7 +84,7 @@ app.get('/auth/google/callback',
 
 app.get('/auth/logout', (req, res) => {
   req.logout(); //Removes req.user and clears any logged in session
-  return res.redirect(`${config.CLIENT_PATH}/`);
+  return res.redirect(`${CLIENT_PATH}/`);
 });
 
 app.get('/secret', checkLoggedIn, (req, res) => {
