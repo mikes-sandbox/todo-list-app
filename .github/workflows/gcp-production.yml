@@ -3,7 +3,7 @@ name: Build and Push Node image to Google Cloud Platform
 
 on:
   push:
-    branches: [production]
+    branches: [main]
 env:
   NODE_ENV: production
   MOUNTED_SECRETS_PATH: /app/server/secrets
