@@ -1,4 +1,8 @@
 // loads config from environment variables (also checks for correct type):
+const path = require('path');
+
+require('dotenv').config({ path: path.join(__dirname, '..', '..', `env-vars-${process.env.NODE_ENV || 'local'}.env`) });
+
 function _getPositiveInteger(key, defaultValue) {
 
     const value = (process.env[key] || '').trim() || defaultValue.toString();
@@ -47,11 +51,9 @@ function _getBoolean(key, defaultValue) {
 
 }
 
-const SECRETS_PATH = _getNonEmptyString('SECRETS_PATH');
-const CLIENT_PATH = _getNonEmptyString('CLIENT_PATH');
-
 module.exports = {
-    SECRETS_PATH,
-    CLIENT_PATH
-}
+    SECRETS_PATH: _getNonEmptyString('SECRETS_PATH'),
+    CLIENT_PATH: _getNonEmptyString('CLIENT_PATH'),
+    AUTH_SERVER: _getNonEmptyString('AUTH_SERVER'),
+};
 

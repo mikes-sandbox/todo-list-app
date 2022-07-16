@@ -7,8 +7,7 @@ const passport = require('passport');
 const { Strategy } = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 
-require('dotenv').config({ path: path.join(__dirname, '..', `env-vars-${process.env.NODE_ENV || 'local'}.env`) });
-
+const { CLIENT_PATH, AUTH_SERVER } = require('./utils/config');
 const getSecrets = require('./utils/get-secrets');
 const config = {
   CLIENT_ID,
@@ -17,12 +16,10 @@ const config = {
   COOKIE_KEY_2,
 } = getSecrets();
 
-const { CLIENT_PATH } = require('./utils/config');
-
 console.log(process.env);
 
 const AUTH_OPTIONS = {
-  callbackURL: `${CLIENT_PATH}/auth/google/callback`,
+  callbackURL: `${AUTH_SERVER}/auth/google/callback`,
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
 };
