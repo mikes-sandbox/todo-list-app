@@ -20,7 +20,10 @@ const RootPage = () => {
 
             <main className="main-container">
                 <div className="header">
-                    <h1 className="header__title">Todo</h1>
+                    <h1 className="header__title"
+                    onClick={()=>navigateLogin}>
+                        <a href="http://localhost:8000/auth/google">Google login</a>
+                        </h1>
                     <ThemeButton iconPath={lightThemeIcon} />
                 </div>
 
@@ -29,4 +32,8 @@ const RootPage = () => {
         </div>
     );
 };
+
+function navigateLogin() {
+
+}
 export default RootPage;

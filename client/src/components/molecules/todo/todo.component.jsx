@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import './todo.styles.scss';
+import { ReactComponent as IconCheck } from '../../../assets/icon-check.svg';
+import { ReactComponent as IconCross } from '../../../assets/icon-cross.svg';
+import { deleteTodo, toggleTodoCompletion } from '../../../redux/todo/todo.actions';
 
-import { ReactComponent as IconCheck } from '../../../assets/icon-check.svg'
-import { ReactComponent as IconCross } from '../../../assets/icon-cross.svg'
 
-const Todo = ({ todo }) => (
+const Todo = ({ todo, deleteTodo, toggleTodoCompletion }) => (
     <li className={`todo ${todo.completed ? 'completed' : ''}`} >
 
         <label
             htmlFor={`checkbox-${todo.id}`}
             className='todo__contents'>
             <input
+                onClick={() => toggleTodoCompletion(todo)}
                 type="checkbox"
                 id={`checkbox-${todo.id}`}
                 className="todo--checkbox" />
@@ -23,10 +27,16 @@ const Todo = ({ todo }) => (
         </label>
 
         <button className="todo--close"
-            type="button">
+            type="button"
+            onClick={() => deleteTodo(todo)}>
             <IconCross></IconCross>
         </button>
     </li>
 );
 
-export default Todo;
+const mapDispatchToProps = dispatch => ({
+    deleteTodo: todo => dispatch(deleteTodo(todo)),
+    toggleTodoCompletion: todo => dispatch(toggleTodoCompletion(todo)),
+});
+
+export default connect(null, mapDispatchToProps)(Todo);

@@ -4,6 +4,9 @@ name: Build and Push Node image to Google Cloud Platform
 on:
   push:
     branches: [development]
+env:
+  NODE_ENV: development
+  MOUNTED_SECRETS_PATH: /app/server/secrets
 
 jobs:
   build-push-gcr:
@@ -23,8 +26,8 @@ jobs:
         uses: "google-github-actions/auth@v0"
         with:
           token_format: "access_token"
-          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}' 
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
 
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
@@ -32,15 +35,15 @@ jobs:
         uses: "docker/login-action@v1"
         with:
           username: "oauth2accesstoken"
-          password: '${{ steps.auth.outputs.access_token }}'
-          registry: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev'
+          password: "${{ steps.auth.outputs.access_token }}"
+          registry: "${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev"
 
       - name: Build Docker Image
         run: docker build . -t '${{ secrets.IMAGE_NAME_DEV }}:latest'
 
       - name: Push Docker Image to Artifact Registry
         env:
-          GIT_TAG: '${{steps.increment-git-tag.outputs.git-tag}}'
+          GIT_TAG: "${{steps.increment-git-tag.outputs.git-tag}}"
         run: |-
           docker tag '${{ secrets.IMAGE_NAME_DEV }}:latest' '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
           docker tag '${{ secrets.IMAGE_NAME_DEV }}:latest' '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:${{ github.sha }}'
@@ -50,10 +53,11 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: '${{ secrets.SERVICE_DEV }}'
-          region: '${{ secrets.REGION_DEV }}'
-          # NOTE: If using a pre-built image, update the image name here
-          image: '${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest'
+          service: "${{ secrets.SERVICE_DEV }}"
+          region: "${{ secrets.REGION_DEV }}"
+          image: "${{ secrets.GAR_LOCATION_DEV }}-docker.pkg.dev/${{ secrets.PROJECT_ID_DEV }}/images/${{ secrets.IMAGE_NAME_DEV }}:latest"
+          secrets: "${{ env.MOUNTED_SECRETS_PATH }}/secrets-${{ env.NODE_ENV }}.json=todo-list-app-${{ env.NODE_ENV }}:latest"
+          env_vars: 'NODE_ENV=${{env.NODE_ENV}}'
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
