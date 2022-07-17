@@ -1,19 +1,16 @@
 const helmet = require('helmet');
 const passport = require('passport');
-const { Strategy } = require('passport-google-oauth20');
+const Strategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
-const express = require('express');
 
-const { CLIENT_PATH, AUTH_SERVER } = require('./config');
-const getSecrets = require('./get-secrets');
+const { AUTH_SERVER, CLIENT_PATH } = require('../utils/config');
 const config = {
     CLIENT_ID,
     CLIENT_SECRET,
     COOKIE_KEY_1,
     COOKIE_KEY_2,
-} = getSecrets();
-
-const router = express.Router();
+} = require('../utils/get-secrets')();
+const { httpStoreUser } = require('../routes/auth/auth.controller');
 
 const AUTH_OPTIONS = {
     callbackURL: `${AUTH_SERVER}/auth/google/callback`,
@@ -21,9 +18,9 @@ const AUTH_OPTIONS = {
     clientSecret: config.CLIENT_SECRET,
 };
 
-function verifyCallback(accessToken, refreshToken, profile, done) {
-    console.log('Google profile', profile);
-    done(null, profile);
+async function verifyCallback(accessToken, refreshToken, profile, done) {
+    const userProfile = await httpStoreUser(profile);
+    done(null, userProfile);
 }
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
@@ -41,6 +38,20 @@ passport.deserializeUser((id, done) => {
     done(null, id);
 });
 
+function authenticateGoogle(req, res, next) {
+    passport.authenticate('google', {
+        scope: ['email', 'profile'],
+    })(req, res, next);
+}
+
+function authenticateGoogleCallback(req, res, next) {
+    passport.authenticate('google', {
+        failureRedirect: `${CLIENT_PATH}/failure`,
+        successRedirect: `${CLIENT_PATH}/`,
+        session: true,
+    })(req, res, next);
+}
+
 function isAuthenticated(req, res, next) {
     console.log('Current user is:', req.user);
     const isLoggedIn = req.isAuthenticated() && req.user;
@@ -52,27 +63,6 @@ function isAuthenticated(req, res, next) {
     next();
 }
 
-router.get('/google',
-    passport.authenticate('google', {
-        scope: ['email', 'profile'],
-    }));
-
-router.get('/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: `${CLIENT_PATH}/failure`,
-        successRedirect: `${CLIENT_PATH}/`,
-        session: true,
-    }),
-    (req, res) => {
-        console.log('Google called us back!');
-    }
-);
-
-router.get('/logout', (req, res) => {
-    req.logout(); //Removes req.user and clears any logged in session
-    return res.redirect(`${CLIENT_PATH}/`);
-});
-
 module.exports = {
     helmet: helmet(),
     cookieSession: cookieSession({
@@ -82,6 +72,7 @@ module.exports = {
     }),
     initializePassport: passport.initialize(),
     passportSession: passport.session(),
+    authenticateGoogle: authenticateGoogle,
+    authenticateGoogleCallback: authenticateGoogleCallback,
     isAuthenticated: isAuthenticated,
-    router: router,
 };
