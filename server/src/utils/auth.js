@@ -21,14 +21,16 @@ const AUTH_OPTIONS = {
     clientSecret: config.CLIENT_SECRET,
 };
 
-async function verifyCallback(accessToken, refreshToken, userProfile, done) {
-    const existingUser = await httpGetExistingUser(userProfile);
+async function verifyCallback(accessToken, refreshToken, profile, done) {
+    const existingUser = await httpGetExistingUser(profile);
     if (existingUser) {
-        return done(null, existingUser);
+        console.log('Existing user, not saving to db...');
+        return done(null, profile);
     }
     else {
-        const user = await httpStoreUser(userProfile);
-        return done(null, user);
+        console.log('New user, saving to db...');
+        const user = await httpStoreUser(profile);
+        return done(null, profile);
     }
 }
 
@@ -43,7 +45,7 @@ passport.serializeUser((userProfile, done) => {
 });
 
 // Read the session from the cookie
-passport.deserializeUser(async (userProfile, done) => {
+passport.deserializeUser((userProfile, done) => {
     return done(null, userProfile);
 });
 

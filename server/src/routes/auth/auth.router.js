@@ -10,7 +10,7 @@ authRouter.get('/google',
 );
 
 authRouter.get('/google/callback',
-    authenticateGoogleCallback,
+    authenticateGoogleCallback
 );
 
 authRouter.get('/logout', (req, res) => {
