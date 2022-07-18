@@ -11,7 +11,6 @@ const config = {
     COOKIE_KEY_2,
 } = require('../utils/get-secrets')();
 const {
-    httpGetExistingUser,
     httpStoreUser
 } = require('../routes/auth/auth.controller');
 
@@ -22,16 +21,8 @@ const AUTH_OPTIONS = {
 };
 
 async function verifyCallback(accessToken, refreshToken, profile, done) {
-    const existingUser = await httpGetExistingUser(profile);
-    if (existingUser) {
-        console.log('Existing user, not saving to db...');
-        return done(null, profile);
-    }
-    else {
-        console.log('New user, saving to db...');
-        const user = await httpStoreUser(profile);
-        return done(null, profile);
-    }
+    const dbUser = await httpStoreUser(profile);
+    return done(null, profile);
 }
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));

@@ -1,6 +1,5 @@
 const {
-    existsUserWithProviderId,
-    createUser
+    upsertUser
 } = require('../../models/users.model');
 
 const {
@@ -12,13 +11,13 @@ function isUserValid(user) {
     return true;
 }
 
-async function httpGetExistingUser(profile) {
-    const {
-        provider: provider,
-        id: providerId,
-    } = profile;
-    return await existsUserWithProviderId(provider, providerId);
-}
+// async function httpGetExistingUser(userProfile) {
+//     const {
+//         provider: provider,
+//         id: providerId,
+//     } = userProfile;
+//     return await existsUserWithProviderId(provider, providerId);
+// }
 
 async function httpStoreUser(userProfile) {
     if (!isUserValid(userProfile)) {
@@ -33,10 +32,9 @@ async function httpStoreUser(userProfile) {
         email: userProfile.emails[0] ? userProfile.emails[0].value : ""
     };
 
-    return await createUser(user);
+    return await upsertUser(user);
 }
 
 module.exports = {
-    httpGetExistingUser,
     httpStoreUser
 };

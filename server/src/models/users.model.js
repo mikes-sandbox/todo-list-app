@@ -4,14 +4,14 @@ async function findUser(filter) {
     return await usersDatabase.findOne(filter);
 }
 
-async function existsUserWithProviderId(provider, providerId) {
-    return await findUser({
-        provider,
-        providerId
-    });
-}
+// async function existsUserWithProviderId(provider, providerId) {
+//     return await findUser({
+//         provider,
+//         providerId
+//     });
+// }
 
-async function saveUser(user) {
+async function upsertUser(user) {
     return await usersDatabase.findOneAndUpdate({
         provider: user.provider,
         providerId: user.providerId,
@@ -20,11 +20,6 @@ async function saveUser(user) {
     });
 }
 
-async function createUser(user) {
-    return await saveUser(user);
-}
-
 module.exports = {
-    existsUserWithProviderId,
-    createUser,
+    upsertUser,
 };
