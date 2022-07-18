@@ -1,5 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
-
 const usersDatabase = require('./users.mongo');
 
 async function findUser(filter) {
@@ -23,10 +21,10 @@ async function saveUser(user) {
 }
 
 async function createUser(user) {
-    console.log("SAVING USER:", user);
     return await saveUser(user);
 }
 
 module.exports = {
+    existsUserWithProviderId,
     createUser,
 };

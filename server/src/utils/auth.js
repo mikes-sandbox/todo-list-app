@@ -10,7 +10,10 @@ const config = {
     COOKIE_KEY_1,
     COOKIE_KEY_2,
 } = require('../utils/get-secrets')();
-const { httpStoreUser } = require('../routes/auth/auth.controller');
+const {
+    httpGetExistingUser,
+    httpStoreUser
+} = require('../routes/auth/auth.controller');
 
 const AUTH_OPTIONS = {
     callbackURL: `${AUTH_SERVER}/auth/google/callback`,
@@ -18,24 +21,30 @@ const AUTH_OPTIONS = {
     clientSecret: config.CLIENT_SECRET,
 };
 
-async function verifyCallback(accessToken, refreshToken, profile, done) {
-    const userProfile = await httpStoreUser(profile);
-    done(null, userProfile);
+async function verifyCallback(accessToken, refreshToken, userProfile, done) {
+    const existingUser = await httpGetExistingUser(userProfile);
+    if (existingUser) {
+        return done(null, existingUser);
+    }
+    else {
+        const user = await httpStoreUser(userProfile);
+        return done(null, user);
+    }
 }
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
 // Save the session to the cookie
-passport.serializeUser((user, done) => {
-    done(null, user.id);
+passport.serializeUser((userProfile, done) => {
+    return done(null, {
+        provider: userProfile.provider,
+        id: userProfile.providerId
+    });
 });
 
 // Read the session from the cookie
-passport.deserializeUser((id, done) => {
-    // User.findById(id).then(user => {
-    //   done(null, user);
-    // });
-    done(null, id);
+passport.deserializeUser(async (userProfile, done) => {
+    return done(null, userProfile);
 });
 
 function authenticateGoogle(req, res, next) {
@@ -53,7 +62,6 @@ function authenticateGoogleCallback(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
-    console.log('Current user is:', req.user);
     const isLoggedIn = req.isAuthenticated() && req.user;
     if (!isLoggedIn) {
         return res.status(401).json({

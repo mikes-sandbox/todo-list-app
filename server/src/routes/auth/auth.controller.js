@@ -1,4 +1,5 @@
 const {
+    existsUserWithProviderId,
     createUser
 } = require('../../models/users.model');
 
@@ -9,6 +10,14 @@ const {
 // TODO
 function isUserValid(user) {
     return true;
+}
+
+async function httpGetExistingUser(profile) {
+    const {
+        provider: provider,
+        id: providerId,
+    } = profile;
+    return await existsUserWithProviderId(provider, providerId);
 }
 
 async function httpStoreUser(userProfile) {
@@ -28,5 +37,6 @@ async function httpStoreUser(userProfile) {
 }
 
 module.exports = {
+    httpGetExistingUser,
     httpStoreUser
 };
