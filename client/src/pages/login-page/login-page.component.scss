@@ -1,0 +1,35 @@
+@import "../../common/variables.scss";
+
+.login-card {
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  left: 0;
+  box-shadow: var(--box-shadow);
+  padding: 2.4rem;
+  display: block;
+  color: var(--color-text-active);
+  transition: background 1s, color 1s, box-shadow 1s;
+
+  .heading {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.2rem;
+    font-weight: 400;
+    font-size: 2rem;
+    transition: border-color 1s;
+  }
+
+  .google-button {
+    background: #4285f4;
+    padding: 2rem;
+    width: 100%;
+    border-radius: var(--border-radius);
+    color: var(--color-white);
+    font-size: 1.8rem;
+    transition: transfrom ease-in-out 0.5s;
+
+    &:hover {
+      transform: translateY(-3%);
+    }
+  }
+}

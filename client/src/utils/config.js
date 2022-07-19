@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 // loads config from environment variables (also checks for correct type):
+
 function _getPositiveInteger(key, defaultValue) {
 
     const value = (process.env[key] || '').trim() || defaultValue.toString();
