@@ -4,12 +4,12 @@ async function findUser(filter) {
     return await usersDatabase.findOne(filter);
 }
 
-// async function existsUserWithProviderId(provider, providerId) {
-//     return await findUser({
-//         provider,
-//         providerId
-//     });
-// }
+async function getUserByProviderId(provider, providerId) {
+    return await findUser({
+        provider,
+        providerId
+    });
+}
 
 async function upsertUser(user) {
     return await usersDatabase.findOneAndUpdate({
@@ -21,5 +21,6 @@ async function upsertUser(user) {
 }
 
 module.exports = {
+    getUserByProviderId,
     upsertUser,
 };

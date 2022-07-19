@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { MONGO_URL } = require('../utils/get-secrets')();
+const { MONGO_URL } = require('./get-secrets')();
 
 mongoose.connection.once('open', () => {
     console.log('MongoDB connection ready!');

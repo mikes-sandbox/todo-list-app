@@ -1,14 +1,18 @@
 import React from "react";
+import { connect } from 'react-redux';
 
 import TodoPage from "../todo-page/todo-page.component";
-import ThemeButton from "../../components/atoms/theme-button/theme-button";
+import UserButton from "../../components/atoms/user-button/user-button.component";
+import ThemeButton from "../../components/atoms/theme-button/theme-button.component";
+
+import { googleSignInStart } from "../../redux/user/user.actions";
 
 import "./root-page.styles.scss";
 import lightThemeIcon from "../../assets/icon-sun.svg";
 import lightThemeSmallImg from "../../assets/bg-mobile-light.jpg";
 import lightThemeLargeImg from "../../assets/bg-desktop-light.jpg";
 
-const RootPage = () => {
+const RootPage = ({ googleSignInStart }) => {
     return (
         <div className="root-page">
             <div className="bg-img-container">
@@ -21,9 +25,13 @@ const RootPage = () => {
             <main className="main-container">
                 <div className="header">
                     <h1 className="header__title"
-                    onClick={()=>navigateLogin}>
-                        <a href="http://localhost:8000/auth/google">Google login</a>
-                        </h1>
+                        onClick={() => googleSignInStart()}>
+                        Todo
+                    </h1>
+
+                    <UserButton
+                        iconPath={lightThemeIcon}
+                    />
                     <ThemeButton iconPath={lightThemeIcon} />
                 </div>
 
@@ -33,7 +41,11 @@ const RootPage = () => {
     );
 };
 
-function navigateLogin() {
+const mapDispatchToProps = dispatch => ({
+    googleSignInStart: () => dispatch(googleSignInStart()),
+});
 
-}
-export default RootPage;
+export default connect(
+    null,
+    mapDispatchToProps
+)(RootPage);

@@ -3,6 +3,7 @@ const passport = require('passport');
 const Strategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
 
+const { storeUser } = require('../routes/auth/auth.controller');
 const { AUTH_SERVER, CLIENT_PATH } = require('../utils/config');
 const config = {
     CLIENT_ID,
@@ -10,18 +11,16 @@ const config = {
     COOKIE_KEY_1,
     COOKIE_KEY_2,
 } = require('../utils/get-secrets')();
-const {
-    httpStoreUser
-} = require('../routes/auth/auth.controller');
+
 
 const AUTH_OPTIONS = {
-    callbackURL: `${AUTH_SERVER}/auth/google/callback`,
+    callbackURL: `${AUTH_SERVER}/api/v1/auth/google/callback`,
     clientID: config.CLIENT_ID,
     clientSecret: config.CLIENT_SECRET,
 };
 
 async function verifyCallback(accessToken, refreshToken, profile, done) {
-    const dbUser = await httpStoreUser(profile);
+    const dbUser = await storeUser(profile);
     return done(null, profile);
 }
 
@@ -31,7 +30,7 @@ passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 passport.serializeUser((userProfile, done) => {
     return done(null, {
         provider: userProfile.provider,
-        id: userProfile.providerId
+        id: userProfile.id
     });
 });
 
@@ -48,9 +47,10 @@ function authenticateGoogle(req, res, next) {
 
 function authenticateGoogleCallback(req, res, next) {
     passport.authenticate('google', {
-        failureRedirect: `${CLIENT_PATH}/failure`,
-        successRedirect: `${CLIENT_PATH}/`,
+        failureRedirect: `${CLIENT_PATH}/auth-failure`,
+        successRedirect: `${CLIENT_PATH}`,
         session: true,
+        failureFlash: true,
     })(req, res, next);
 }
 

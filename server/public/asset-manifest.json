@@ -1,19 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.27480ea4.css",
-    "main.js": "/static/js/main.c6e99e13.js",
-    "static/js/787.b6086cd3.chunk.js": "/static/js/787.b6086cd3.chunk.js",
-    "static/media/bg-desktop-light.jpg": "/static/media/bg-desktop-light.3508d620efd5a52bb4ce.jpg",
+    "main.css": "/static/css/main.abcac72f.chunk.css",
+    "main.js": "/static/js/main.06d94423.chunk.js",
+    "main.js.map": "/static/js/main.06d94423.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.2b9c62ea.js",
+    "runtime-main.js.map": "/static/js/runtime-main.2b9c62ea.js.map",
+    "static/js/2.00eb3781.chunk.js": "/static/js/2.00eb3781.chunk.js",
+    "static/js/2.00eb3781.chunk.js.map": "/static/js/2.00eb3781.chunk.js.map",
+    "static/js/3.3fd4630d.chunk.js": "/static/js/3.3fd4630d.chunk.js",
+    "static/js/3.3fd4630d.chunk.js.map": "/static/js/3.3fd4630d.chunk.js.map",
     "index.html": "/index.html",
-    "static/media/icon-sun.svg": "/static/media/icon-sun.ad189f9c3ea11a1f5f21032845282ddb.svg",
-    "static/media/icon-cross.svg": "/static/media/icon-cross.231e0f7ebb6a1bffdd2b8fd15aaba3f2.svg",
-    "static/media/icon-check.svg": "/static/media/icon-check.a8fb15d0278c8e312df5fc8364fef863.svg",
-    "main.27480ea4.css.map": "/static/css/main.27480ea4.css.map",
-    "main.c6e99e13.js.map": "/static/js/main.c6e99e13.js.map",
-    "787.b6086cd3.chunk.js.map": "/static/js/787.b6086cd3.chunk.js.map"
+    "static/css/main.abcac72f.chunk.css.map": "/static/css/main.abcac72f.chunk.css.map",
+    "static/js/2.00eb3781.chunk.js.LICENSE.txt": "/static/js/2.00eb3781.chunk.js.LICENSE.txt",
+    "static/media/bg-desktop-light.3508d620.jpg": "/static/media/bg-desktop-light.3508d620.jpg",
+    "static/media/icon-check.a8fb15d0.svg": "/static/media/icon-check.a8fb15d0.svg",
+    "static/media/icon-cloud-1.696b5a69.svg": "/static/media/icon-cloud-1.696b5a69.svg",
+    "static/media/icon-cross.231e0f7e.svg": "/static/media/icon-cross.231e0f7e.svg",
+    "static/media/icon-sun.ad189f9c.svg": "/static/media/icon-sun.ad189f9c.svg"
   },
   "entrypoints": [
-    "static/css/main.27480ea4.css",
-    "static/js/main.c6e99e13.js"
+    "static/js/runtime-main.2b9c62ea.js",
+    "static/js/2.00eb3781.chunk.js",
+    "static/css/main.abcac72f.chunk.css",
+    "static/js/main.06d94423.chunk.js"
   ]
 }

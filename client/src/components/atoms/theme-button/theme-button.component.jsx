@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./theme-button.scss";
+import "./theme-button.styles.scss";
 
 const ThemeButton = ({ iconPath }) => (
   <button>

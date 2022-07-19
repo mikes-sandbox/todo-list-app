@@ -1,25 +1,20 @@
 const {
+    getUserByProviderId,
     upsertUser
 } = require('../../models/users.model');
 
 const {
     getPagination,
-} = require('../../services/query');
+} = require('../../utils/query');
 
 // TODO
 function isUserValid(user) {
     return true;
 }
 
-// async function httpGetExistingUser(userProfile) {
-//     const {
-//         provider: provider,
-//         id: providerId,
-//     } = userProfile;
-//     return await existsUserWithProviderId(provider, providerId);
-// }
 
-async function httpStoreUser(userProfile) {
+// Used by oath verifyCallback to upsert user in DB from cookie
+async function storeUser(userProfile) {
     if (!isUserValid(userProfile)) {
         // TODO
     }
@@ -35,6 +30,14 @@ async function httpStoreUser(userProfile) {
     return await upsertUser(user);
 }
 
+
+async function httpGetUser(req, res) {
+    const dbUser = await getUserByProviderId(req.user.provider, req.user.id);
+    return res.status(200).json(dbUser);
+}
+
+
 module.exports = {
-    httpStoreUser
+    storeUser,
+    httpGetUser
 };

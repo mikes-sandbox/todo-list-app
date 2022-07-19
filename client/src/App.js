@@ -1,19 +1,31 @@
 import React, { useEffect } from 'react';
-import './App.scss';
-import RootPage from './pages/root-page/root-page.component';
+import { connect } from 'react-redux';
 
-function App() {
+import './App.scss';
+import RootPageContainer from './pages/root-page/root-page.container';
+
+import { checkUserSession } from './redux/user/user.actions';
+
+const App = ({ checkUserSession }) => {
 
   useEffect(() => {
+    checkUserSession();
     document.body.className = "light-theme";
-  }, []);
+  }, [checkUserSession]);
 
   return (
     <div className="App">
-      <RootPage />
+      <RootPageContainer />
     </div>
   );
-}
+};
 
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
