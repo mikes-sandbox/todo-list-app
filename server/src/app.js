@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const auth = require('./utils/auth')
+const auth = require('./utils/auth');
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(auth.initializePassport);
 app.use(auth.passportSession);
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: true,
   credentials: true,
 }));
 // app.use(morgan('combined'));
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api/v1', apiRouter);
 
 app.get('/secret', auth.isAuthenticated, (req, res) => {
-  return res.send({key:'Your personal secret value is 42!'});
+  return res.send({ key: 'Your personal secret value is 42!' });
 });
 
 // app.get('/failure', (req, res) => {

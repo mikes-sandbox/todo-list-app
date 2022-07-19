@@ -2,7 +2,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { createBrowserHistory } from 'history';
 
 import UserActionTypes from './user.types';
-import { AUTH_SERVER_URL } from '../../utils/config';
+import { AUTH_SERVER_URL } from '../../common/config';
 import { getUserDetails } from '../../services/auth.service';
 
 import {
@@ -22,9 +22,9 @@ export function* signInWithGoogle() {
 export function* isUserAuthenticated() {
   try {
     const dbUser = yield call(getUserDetails);
-    if (!dbUser) {
+    if (!dbUser)
       return yield put(noUserDetected());
-    }
+
     yield put(signInSuccess(dbUser));
   } catch (error) {
     yield put(signInFailure(error));

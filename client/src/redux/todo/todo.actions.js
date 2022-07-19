@@ -1,8 +1,15 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import TodoActionTypes from "./todo.types";
 
 export const addTodo = todoString => ({
     type: TodoActionTypes.ADD_TODO,
-    payload: todoString
+    payload: {
+        name: todoString,
+        id: uuidv4(),
+        completed: false,
+        dateModified: new Date().valueOf()
+    }
 });
 
 export const toggleTodoCompletion = todo => ({

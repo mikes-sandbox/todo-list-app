@@ -68,7 +68,7 @@ module.exports = {
     helmet: helmet(),
     cookieSession: cookieSession({
         name: 'session',
-        maxAge: 1 * 60 * 1000,
+        maxAge: 5 * 60 * 1000,
         keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
     }),
     initializePassport: passport.initialize(),
