@@ -1,38 +1,75 @@
 import TodoActionTypes from "./todo.types";
 import { EXAMPLE_TODOS } from "../../common/variables";
-import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted } from "./todo.utils";
+import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted, updateTodo, todoSuccessfullyDeleted } from "./todo.utils";
 
 
 const INITIAL_STATE = {
-    todos: EXAMPLE_TODOS
+    activeTodos: EXAMPLE_TODOS,
+    pendingDeletion: []
 };
 
 
 const todoReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case TodoActionTypes.ADD_TODO:
+        case TodoActionTypes.ADD_TODO_START:
             return {
                 ...state,
-                todos: addTodo(state.todos, action.payload)
+                activeTodos: addTodo(state.activeTodos, action.payload)
             };
 
-        case TodoActionTypes.TOGGLE_TODO_COMPLETION:
+        case TodoActionTypes.TOGGLE_TODO_COMPLETION_START:
             return {
                 ...state,
-                todos: toggleTodoCompletion(state.todos, action.payload)
+                activeTodos: toggleTodoCompletion(state.activeTodos, action.payload)
             };
 
-        case TodoActionTypes.DELETE_TODO:
+
+        case TodoActionTypes.DELETE_TODO_START:
+            {
+                const { activeTodos, pendingDeletion } = deleteTodo(state.activeTodos, state.pendingDeletion, action.payload);
+                return {
+                    ...state,
+                    activeTodos: activeTodos,
+                    pendingDeletion: pendingDeletion
+                };
+            }
+        case TodoActionTypes.DELETE_TODO_SUCCESS:
             return {
                 ...state,
-                todos: deleteTodo(state.todos, action.payload)
+                pendingDeletion: todoSuccessfullyDeleted(state.pendingDeletion, action.payload)
             };
 
-        case TodoActionTypes.CLEAR_COMPLETED:
+
+        case TodoActionTypes.CLEAR_COMPLETED_START:
+            {
+                const { activeTodos, pendingDeletion } = clearCompleted(state.activeTodos, state.pendingDeletion);
+                return {
+                    ...state,
+                    activeTodos: activeTodos,
+                    pendingDeletion: pendingDeletion
+                };
+            }
+        case TodoActionTypes.CLEAR_COMPLETED_SUCCESS:
             return {
                 ...state,
-                todos: clearCompleted(state.todos)
+                pendingDeletion: []
             };
+
+
+        case TodoActionTypes.ADD_TODO_SUCCESS:
+        case TodoActionTypes.TOGGLE_TODO_COMPLETION_SUCCESS:
+            return {
+                ...state,
+                activeTodos: updateTodo(state.activeTodos, action.payload)
+            };
+
+
+        // case TodoActionTypes.ADD_TODO_FAILURE:
+        //     return {
+        //         ...state,
+        //         activeTodos: addTodo(state.activeTodos, action.payload)
+        //     };
+
 
         default:
             return state;

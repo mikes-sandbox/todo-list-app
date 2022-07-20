@@ -1,16 +1,15 @@
 const express = require('express');
-
 const {
-    isAuthenticated
-} = require('../../utils/auth');
-
+    httpCreateTodo,
+    httpDeleteTodo,
+    httpDeleteManyTodos
+} = require('./todo.controller');
 
 const todoRouter = express.Router();
 
-todoRouter.get('/',
-    isAuthenticated,
-    (req, res) => {
-        return res.status(200).json({ success: true });
-    });
+todoRouter.post('/', httpCreateTodo);
+todoRouter.delete('/:id', httpDeleteTodo);
+todoRouter.post('/clear-completed', httpDeleteManyTodos);
+
 
 module.exports = todoRouter;

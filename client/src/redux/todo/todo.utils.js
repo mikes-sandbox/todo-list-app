@@ -1,6 +1,16 @@
-
 export const addTodo = (todoList, todo) => {
-    return [...todoList, todo];
+    return [...todoList, Object.assign({
+        completed: false,
+        dateModified: new Date().valueOf(),
+        isDeleted: false
+    }, todo)];
+};
+
+export const updateTodo = (todoList, updatedTodo) => {
+    return todoList.map(todo =>
+        todo.id === updatedTodo.id
+            ? updatedTodo : todo
+    );
 };
 
 export const toggleTodoCompletion = (todoList, todoToToggle) => {
@@ -14,10 +24,41 @@ export const toggleTodoCompletion = (todoList, todoToToggle) => {
     );
 };
 
-export const deleteTodo = (todoList, todoToDelete) => {
-    return todoList.filter(todo => todo.id !== todoToDelete.id);
+export const deleteTodo = (todoList, pendingDeletionArray, todoToDelete) => {
+    const context = todoList.reduce((ctx, todo) => {
+        if (todo.id === todoToDelete.id) {
+            ctx.pendingDeletion.push(todo);
+        } else {
+            ctx.activeTodos.push(todo);
+        }
+        return ctx;
+    }, {
+        pendingDeletion: structuredClone(pendingDeletionArray),
+        activeTodos: []
+    });
+
+    return context;
 };
 
-export const clearCompleted = (todoList) => {
-    return todoList.filter(todo => !todo.completed);
+export const todoSuccessfullyDeleted = (pendingDeletionArray, todoId) => {
+    return pendingDeletionArray.filter(todo => todo.id !== todoId);
+};
+
+// Function returns an object with 2 arrays:
+// activeTodos => should not be deleted
+// completedTodos => should be deleted
+export const clearCompleted = (todoList, pendingDeletionArray) => {
+    const context = todoList.reduce((ctx, todo) => {
+        if (todo.completed) {
+            ctx.pendingDeletion.push(todo);
+        } else {
+            ctx.activeTodos.push(todo);
+        }
+        return ctx;
+    }, {
+        pendingDeletion: structuredClone(pendingDeletionArray),
+        activeTodos: []
+    });
+
+    return context;
 };

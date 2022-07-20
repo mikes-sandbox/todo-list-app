@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { connect, } from "react-redux";
 
 import "./todo-page.styles.scss";
-import { addTodo } from "../../redux/todo/todo.actions";
+import { addTodoStart } from "../../redux/todo/todo.actions";
 import TodoInput from "../../components/atoms/todo-input/todo-input.component";
 import TodoList from '../../components/organisms/todo-list/todo-list.component';
 
 
-const TodoPage = ({ addTodo }) => {
+const TodoPage = ({ addTodoStart }) => {
 
   const [newTodoString, setNewTodoString] = useState("");
 
@@ -15,7 +15,7 @@ const TodoPage = ({ addTodo }) => {
     event.preventDefault();
 
     if (!newTodoString.trim()) return;
-    addTodo(newTodoString);
+    addTodoStart(newTodoString);
     setNewTodoString("");
   };
 
@@ -37,7 +37,7 @@ const TodoPage = ({ addTodo }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodo: (todoString) => dispatch(addTodo(todoString)),
+  addTodoStart: (todoString) => dispatch(addTodoStart(todoString)),
 });
 
 export default connect(null, mapDispatchToProps)(TodoPage);

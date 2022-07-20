@@ -27,7 +27,7 @@ export function* isUserAuthenticated() {
 
     yield put(signInSuccess(dbUser));
   } catch (error) {
-    yield put(signInFailure(error));
+    yield put(signInFailure(error.message));
   }
 }
 

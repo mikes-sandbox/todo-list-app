@@ -6,10 +6,10 @@ import './todo-list.styles.scss';
 import { FILTERS } from '../../../common/variables';
 import Todo from '../../molecules/todo/todo.component';
 import { selectTodoList } from '../../../redux/todo/todo.selectors';
-import { clearCompleted } from '../../../redux/todo/todo.actions';
+import { clearCompletedStart } from '../../../redux/todo/todo.actions';
 
 
-const TodoList = ({ todoList, clearCompleted }) => {
+const TodoList = ({ todoList, clearCompletedStart }) => {
 
     const [filter, setFilter] = useState(FILTERS.ALL);
     const [filteredTodos, setfilteredTodos] = useState([]);
@@ -49,7 +49,7 @@ const TodoList = ({ todoList, clearCompleted }) => {
                 </div>
 
                 <button className="clear-completed"
-                    onClick={() => clearCompleted()}>
+                    onClick={() => clearCompletedStart()}>
                     Clear Completed
                 </button>
 
@@ -76,7 +76,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    clearCompleted: () => dispatch(clearCompleted())
+    clearCompletedStart: () => dispatch(clearCompletedStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
