@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_SERVER_URL } from '../common/config';
+import { BASE_API_URL } from '../common/config';
 
 // const UNAUTHORIZED = 401;
 // axios.interceptors.response.use(
@@ -16,7 +16,7 @@ import { AUTH_SERVER_URL } from '../common/config';
 // todo if 401, redirect to login screen
 export async function getUserDetails() {
     try {
-        const response = await axios.get(`${AUTH_SERVER_URL}/auth/getUser`,
+        const response = await axios.get(`${BASE_API_URL}/auth/getUser`,
             { withCredentials: true });
         return response.data;
     } catch (err) {

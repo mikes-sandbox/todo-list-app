@@ -42,13 +42,13 @@ const RootPage = () => {
                         <Suspense fallback={<Spinner />}>
                             <Routes>
 
-                                <Route exact path='/' element={
+                                <Route  path='/' element={
                                     <RequireAuth>
                                         <TodoPage />
                                     </RequireAuth>
                                 } />
 
-                                <Route path='/login' element={<LoginPage />} />
+                                <Route exact path='/login' element={<LoginPage />} />
 
                             </Routes>
                         </Suspense>

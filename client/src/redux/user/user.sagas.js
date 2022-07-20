@@ -1,8 +1,8 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 
 import UserActionTypes from './user.types';
-import { AUTH_SERVER_URL } from '../../common/config';
+import { BASE_API_URL } from '../../common/config';
 import { getUserDetails } from '../../services/auth.service';
 
 import {
@@ -14,10 +14,10 @@ import {
 } from './user.actions';
 
 
-export function* signInWithGoogle() {
-  const browserHistory = createBrowserHistory();
-  yield call(browserHistory.push, `${AUTH_SERVER_URL}/auth/google`);
-}
+// export function* signInWithGoogle() {
+//   const browserHistory = createBrowserHistory();
+//   yield call(browserHistory.push, `${BASE_API_URL}/auth/google`);
+// }
 
 export function* isUserAuthenticated() {
   try {
@@ -40,9 +40,9 @@ export function* isUserAuthenticated() {
 //   }
 // }
 
-export function* onGoogleSignInStart() {
-  yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
-}
+// export function* onGoogleSignInStart() {
+//   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
+// }
 
 export function* onCheckUserSession() {
   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
@@ -54,7 +54,7 @@ export function* onCheckUserSession() {
 
 export function* userSagas() {
   yield all([
-    call(onGoogleSignInStart),
+    // call(onGoogleSignInStart),
     call(onCheckUserSession),
     // call(onSignOutStart),
   ]);

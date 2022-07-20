@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { AUTH_SERVER_URL } from '../common/config';
+import { BASE_API_URL } from '../common/config';
 
 // todo if 401, redirect to login screen
 export async function httpCreateTodo(todo) {
     try {
-        const response = await axios.get(`${AUTH_SERVER_URL}/todo`,
+        const response = await axios.get(`${BASE_API_URL}/todo`,
             { withCredentials: true });
         return response.data;
     } catch (err) {

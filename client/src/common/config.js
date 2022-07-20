@@ -50,5 +50,5 @@ function _getBoolean(key, defaultValue) {
 }
 
 module.exports = {
-    AUTH_SERVER_URL: _getNonEmptyString('REACT_APP_AUTH_SERVER_URL'),
+    BASE_API_URL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/v1' : '/api/v1',
 };

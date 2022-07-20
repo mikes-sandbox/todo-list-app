@@ -11,7 +11,7 @@ const { httpGetUser } = require('./auth.controller');
 const authRouter = express.Router();
 
 authRouter.get('/google',
-    authenticateGoogle
+    authenticateGoogle,
 );
 
 authRouter.get('/google/callback',

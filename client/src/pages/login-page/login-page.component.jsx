@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { useNavigate, useLocation } from 'react-router';
+
 import './login-page.component.scss';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { BASE_API_URL } from '../../common/config';
 
-import { googleSignInStart } from '../../redux/user/user.actions';
-
-const LoginPage = ({ currentUser, googleSignInStart }) => {
+const LoginPage = ({ currentUser }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -22,10 +22,11 @@ const LoginPage = ({ currentUser, googleSignInStart }) => {
             <div className="login-card">
                 <h2 className="heading">Sign In</h2>
 
-                <button className="google-button"
-                    onClick={googleSignInStart}>
+                <a className="google-button"
+                    href={`${BASE_API_URL}/auth/google`}>
                     Continue with Google
-                </button>
+                </a>
+
             </div>
 
         </div>
@@ -36,11 +37,7 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = dispatch => ({
-    googleSignInStart: () => dispatch(googleSignInStart()),
-});
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(LoginPage);
