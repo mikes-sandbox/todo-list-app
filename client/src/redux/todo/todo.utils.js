@@ -1,4 +1,5 @@
 export const addTodo = (todoList, todo) => {
+
     return [...todoList, Object.assign({
         completed: false,
         dateModified: new Date().valueOf(),
@@ -24,41 +25,43 @@ export const toggleTodoCompletion = (todoList, todoToToggle) => {
     );
 };
 
-export const deleteTodo = (todoList, pendingDeletionArray, todoToDelete) => {
-    const context = todoList.reduce((ctx, todo) => {
-        if (todo.id === todoToDelete.id) {
-            ctx.pendingDeletion.push(todo);
-        } else {
-            ctx.activeTodos.push(todo);
-        }
-        return ctx;
-    }, {
-        pendingDeletion: structuredClone(pendingDeletionArray),
-        activeTodos: []
-    });
-
-    return context;
+export const deleteTodo = (todoList, todoToDelete) => {
+    return todoList.map(todo =>
+        todo.id === todoToDelete.id
+            ? {
+                ...todo,
+                isDeleted: true,
+                dateModified: new Date().valueOf()
+            } : todo
+    );
 };
 
-export const todoSuccessfullyDeleted = (pendingDeletionArray, todoId) => {
-    return pendingDeletionArray.filter(todo => todo.id !== todoId);
+export const todoSuccessfullyDeleted = (todoList, deletedTodoId) => {
+    return todoList.filter(todo => todo.id !== deletedTodoId);
 };
 
-// Function returns an object with 2 arrays:
-// activeTodos => should not be deleted
-// completedTodos => should be deleted
-export const clearCompleted = (todoList, pendingDeletionArray) => {
-    const context = todoList.reduce((ctx, todo) => {
-        if (todo.completed) {
-            ctx.pendingDeletion.push(todo);
-        } else {
-            ctx.activeTodos.push(todo);
+
+export const clearCompleted = (todoList) => {
+    return todoList.map(todo =>
+        todo.completed
+            ? {
+                ...todo,
+                isDeleted: true,
+                dateModified: new Date().valueOf()
+            } : todo
+    );
+};
+
+export const clearCompletedSuccess = (currentTodoList, dbActiveTodos) => {
+    const dbTodos = structuredClone(dbActiveTodos);
+
+    // If todo is only stored locally and isnt deleted, preserve it
+    // Not concerned about preserving todo order yet.
+    currentTodoList.forEach(todo => {
+        if (!todo._id && !todo.isDeleted) {
+            dbTodos.push(todo);
         }
-        return ctx;
-    }, {
-        pendingDeletion: structuredClone(pendingDeletionArray),
-        activeTodos: []
     });
 
-    return context;
+    return dbTodos;
 };

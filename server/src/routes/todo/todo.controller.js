@@ -2,7 +2,8 @@ const {
     upsertTodo,
     getTodoById,
     deleteTodoById,
-    deleteManyTodos
+    deleteManyTodos,
+    getAllActiveTodos
 } = require('../../models/todos.model');
 
 const {
@@ -60,13 +61,18 @@ async function httpDeleteManyTodos(req, res) {
         });
     }
 
-    return res.status(200).json({
-        ok: true,
-    });
+    return await httpGetAllActiveTodos(req, res);
+}
+
+async function httpGetAllActiveTodos(req, res) {
+    const { skip, limit } = getPagination(req.query);
+    const todos = await getAllActiveTodos(skip, limit);
+    return res.status(200).json(todos);
 }
 
 module.exports = {
     httpCreateTodo,
     httpDeleteTodo,
-    httpDeleteManyTodos
+    httpDeleteManyTodos,
+    httpGetAllActiveTodos
 };

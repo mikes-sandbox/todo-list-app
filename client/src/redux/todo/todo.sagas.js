@@ -3,7 +3,7 @@ import { takeLatest, put, all, call, select, takeEvery } from 'redux-saga/effect
 import TodoActionTypes from './todo.types';
 import { httpDeleteTodo, httpUpsertTodo, httpDeleteManyTodos } from '../../services/todo.service';
 import { addTodoSuccess, addTodoFailure, toggleTodoCompletionSuccess, toggleTodoCompletionFailure, deleteTodoSuccess, deleteTodoFailure, clearCompletedSuccess, clearCompletedFailure } from './todo.actions';
-import { selectTodoById, selectPendingDeletionIds } from './todo.selectors';
+import { selectTodoById, selectPendingDeleteTodos } from './todo.selectors';
 
 export function* createTodo(addTodoAction) {
     const todoId = addTodoAction.payload.id;
@@ -53,11 +53,11 @@ export function* deleteTodo(deleteTodoAction) {
 }
 
 export function* clearPendingDeletionTodos() {
-    const deletionIds = yield select(selectPendingDeletionIds);
-    
+    const deletionIds = yield select(selectPendingDeleteTodos);
+
     try {
-        yield call(httpDeleteManyTodos, deletionIds);
-        yield put(clearCompletedSuccess(deletionIds));
+        const dbActiveTodos = yield call(httpDeleteManyTodos, deletionIds);
+        yield put(clearCompletedSuccess(dbActiveTodos));
     } catch (error) {
         console.log(error);
         yield put(clearCompletedFailure(error.message));

@@ -40,10 +40,19 @@ async function deleteManyTodos(todoIdArr) {
     return deleteResponse.acknowledged;
 }
 
+async function getAllActiveTodos(skip, limit) {
+    return await todosDatabase
+        .find({ isDeleted: false }, {})
+        // .sort({})
+        .skip(skip)
+        .limit(limit);
+}
+
 
 module.exports = {
     getTodoById,
     upsertTodo,
     deleteTodoById,
-    deleteManyTodos
+    deleteManyTodos,
+    getAllActiveTodos
 };

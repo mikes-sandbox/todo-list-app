@@ -3,8 +3,8 @@ import React from "react";
 import "./theme-button.styles.scss";
 
 const ThemeButton = ({ iconPath }) => (
-  <button>
-    <img src={iconPath} alt="" className="bg-img" />
+  <button className="theme-button">
+    <img src={iconPath} alt="" />
   </button>
 );
 

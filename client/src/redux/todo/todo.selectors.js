@@ -7,15 +7,16 @@ export const selectTodoList = createSelector(
     todo => todo.activeTodos
 );
 
-export const selectPendingDeletionList = createSelector(
-    [selectTodo],
-    todo => todo.pendingDeletion
+export const selectPendingDeleteTodos = createSelector(
+    [selectTodoList],
+    activeTodos => activeTodos.reduce(function (deletionIds, todo) {
+        if (todo.isDeleted) {
+            deletionIds.push(todo.id);
+        }
+        return deletionIds;
+    }, [])
 );
 
-export const selectPendingDeletionIds = createSelector(
-    [selectPendingDeletionList],
-    pendingDeletion => pendingDeletion.map(todo => todo.id)
-);
 
 export const selectTodoById = todoId => createSelector(
     [selectTodoList],

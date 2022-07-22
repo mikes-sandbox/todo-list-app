@@ -50,8 +50,9 @@ export const deleteTodoFailure = errorMessage => ({
 export const clearCompletedStart = () => ({
     type: TodoActionTypes.CLEAR_COMPLETED_START,
 });
-export const clearCompletedSuccess = () => ({
+export const clearCompletedSuccess = dbActiveTodos => ({
     type: TodoActionTypes.CLEAR_COMPLETED_SUCCESS,
+    payload: dbActiveTodos
 });
 export const clearCompletedFailure = errorMessage => ({
     type: TodoActionTypes.CLEAR_COMPLETED_FAILURE,

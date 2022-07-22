@@ -1,12 +1,21 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import "./user-button.styles.scss";
 import offlineIcon from "../../../assets/icon-cloud-1.svg";
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
 
-const UserButton = () => (
-    <button>
-        <img src={offlineIcon} alt="" className="bg-img" />
+const UserButton = ({ currentUser }) => (
+    <button className="user-button">
+        <img src={currentUser ? currentUser.photoURL : offlineIcon} alt="" referrerPolicy="no-referrer" />
     </button>
 );
 
-export default UserButton;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+});
+export default connect(
+    mapStateToProps,
+    null
+)(UserButton);

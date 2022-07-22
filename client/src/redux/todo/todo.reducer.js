@@ -1,11 +1,10 @@
 import TodoActionTypes from "./todo.types";
 import { EXAMPLE_TODOS } from "../../common/variables";
-import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted, updateTodo, todoSuccessfullyDeleted } from "./todo.utils";
+import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted, updateTodo, todoSuccessfullyDeleted, clearCompletedSuccess } from "./todo.utils";
 
 
 const INITIAL_STATE = {
     activeTodos: EXAMPLE_TODOS,
-    pendingDeletion: []
 };
 
 
@@ -25,34 +24,28 @@ const todoReducer = (state = INITIAL_STATE, action) => {
 
 
         case TodoActionTypes.DELETE_TODO_START:
-            {
-                const { activeTodos, pendingDeletion } = deleteTodo(state.activeTodos, state.pendingDeletion, action.payload);
-                return {
-                    ...state,
-                    activeTodos: activeTodos,
-                    pendingDeletion: pendingDeletion
-                };
-            }
+            return {
+                ...state,
+                activeTodos: deleteTodo(state.activeTodos, action.payload),
+            };
+
         case TodoActionTypes.DELETE_TODO_SUCCESS:
             return {
                 ...state,
-                pendingDeletion: todoSuccessfullyDeleted(state.pendingDeletion, action.payload)
+                activeTodos: todoSuccessfullyDeleted(state.activeTodos, action.payload)
             };
 
 
         case TodoActionTypes.CLEAR_COMPLETED_START:
-            {
-                const { activeTodos, pendingDeletion } = clearCompleted(state.activeTodos, state.pendingDeletion);
-                return {
-                    ...state,
-                    activeTodos: activeTodos,
-                    pendingDeletion: pendingDeletion
-                };
-            }
+            return {
+                ...state,
+                activeTodos: clearCompleted(state.activeTodos),
+            };
+
         case TodoActionTypes.CLEAR_COMPLETED_SUCCESS:
             return {
                 ...state,
-                pendingDeletion: []
+                activeTodos: clearCompletedSuccess(state.activeTodos, action.payload)
             };
 
 
