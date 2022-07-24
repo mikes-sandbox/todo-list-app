@@ -9,7 +9,6 @@ import TodoList from '../../components/organisms/todo-list/todo-list.component';
 
 const TodoPage = ({ addTodoStart }) => {
 
-  const [isLoading, setIsLoading] = useState(true);
   const [newTodoString, setNewTodoString] = useState("");
 
   const handleSubmit = async (event) => {

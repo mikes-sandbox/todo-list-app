@@ -1,28 +1,35 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectAllThemes, selectActiveThemeIndex } from '../../redux/ui/ui.selectors';
 
 import UserButton from "../../components/atoms/user-button/user-button.component";
 import ThemeButton from "../../components/atoms/theme-button/theme-button.component";
 import ErrorBoundary from '../../components/atoms/error-boundary/error-boundary.component';
 import Spinner from "../../components/atoms/spinner/spinner.component";
 import RequireAuth from '../../components/atoms/require-auth/require-auth.component';
-
 import "./root-page.styles.scss";
-import lightThemeIcon from "../../assets/icon-sun.svg";
-import lightThemeSmallImg from "../../assets/bg-mobile-light.jpg";
-import lightThemeLargeImg from "../../assets/bg-desktop-light.jpg";
 
 const TodoPage = lazy(() => import("../todo-page/todo-page.component"));
 const LoginPage = lazy(() => import("../login-page/login-page.component"));
 
-const RootPage = () => {
+
+const RootPage = ({ themes, activeThemeIndex }) => {
+
+    const activeTheme = themes[activeThemeIndex];
+
     return (
         <div className="root-page">
-            <div className="bg-img-container">
-                <picture>
-                    <source media="(max-width: 399px)" srcSet={lightThemeSmallImg} />
-                    <img src={lightThemeLargeImg} alt="" className="bg-img active" />
-                </picture>
+            <div className='bg-img-container'>
+                {
+                    themes.map((theme, index) => (
+                        <picture key={index} >
+                            <source media='(max-width: 399px)' srcSet={theme.mobilePath} />
+                            <img src={theme.desktopPath} alt="" className={`bg-img ${activeThemeIndex === index ? 'active' : ''}`} />
+                        </picture>
+                    ))
+                }
             </div>
 
             <main className="main-container">
@@ -31,10 +38,8 @@ const RootPage = () => {
                         Todo
                     </h1>
 
-                    <UserButton
-                        iconPath={lightThemeIcon}
-                    />
-                    <ThemeButton iconPath={lightThemeIcon} />
+                    <UserButton />
+                    <ThemeButton iconPath={activeTheme.iconPath} />
                 </div>
 
                 <ErrorBoundary>
@@ -42,7 +47,7 @@ const RootPage = () => {
                         <Suspense fallback={<Spinner />}>
                             <Routes>
 
-                                <Route  path='/' element={
+                                <Route path='/' element={
                                     <RequireAuth>
                                         <TodoPage />
                                     </RequireAuth>
@@ -59,5 +64,10 @@ const RootPage = () => {
     );
 };
 
+const mapStateToProps = createStructuredSelector({
+    themes: selectAllThemes,
+    activeThemeIndex: selectActiveThemeIndex
+});
 
-export default RootPage;
+
+export default connect(mapStateToProps)(RootPage);

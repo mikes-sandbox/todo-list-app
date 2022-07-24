@@ -1,11 +1,21 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import "./theme-button.styles.scss";
+import { changeTheme } from '../../../redux/ui/ui.actions';
 
-const ThemeButton = ({ iconPath }) => (
-  <button className="theme-button">
-    <img src={iconPath} alt="" />
+import './theme-button.styles.scss';
+
+const ThemeButton = ({ changeTheme, iconPath }) => (
+  <button onClick={changeTheme}>
+    <img src={iconPath} alt="" className='bg-img' />
   </button>
 );
 
-export default ThemeButton;
+const mapDispatchToProps = dispatch => ({
+  changeTheme: () => dispatch(changeTheme())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ThemeButton);
