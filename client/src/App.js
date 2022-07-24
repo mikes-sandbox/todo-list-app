@@ -13,7 +13,6 @@ const App = ({ checkUserSession, theme }) => {
 
   useEffect(() => {
     checkUserSession();
-    document.body.className = "light-theme";
   }, [checkUserSession]);
 
   useEffect(() => {

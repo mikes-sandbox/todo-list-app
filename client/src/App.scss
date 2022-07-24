@@ -37,6 +37,12 @@ body {
   padding: 7rem 2.4rem;
   background: var(--color-bg);
   transition: background 1s;
+
+  // Overrides transitions that cause theme colours to flash on initial page load
+  // Class is removed once persisted redux store value is loaded
+  &.preload-overwrite {
+    transition: none !important;
+  }
 }
 
 a {
