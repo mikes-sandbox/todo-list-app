@@ -80,9 +80,8 @@ export const mergeTodosFailure = errorMessage => ({
 export const saveUnsavedTodosStart = () => ({
     type: TodoActionTypes.SAVE_UNSAVED_TODOS_START,
 });
-export const saveUnsavedTodosSuccess = mergedTodos => ({
+export const saveUnsavedTodosSuccess = () => ({
     type: TodoActionTypes.SAVE_UNSAVED_TODOS_SUCCESS,
-    payload: mergedTodos
 });
 export const saveUnsavedTodosFailure = errorMessage => ({
     type: TodoActionTypes.SAVE_UNSAVED_TODOS_FAILURE,

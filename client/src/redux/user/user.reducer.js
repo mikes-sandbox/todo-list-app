@@ -13,6 +13,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: false
       };
+
+
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
@@ -20,20 +22,25 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: action.payload,
         error: null
       };
-    // case UserActionTypes.SIGN_OUT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     currentUser: null,
-    //     error: null
-    //   };
+
+
     case UserActionTypes.SIGN_IN_FAILURE:
-      // case UserActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.payload
       };
+
+
+    case UserActionTypes.USER_UNAUTHORISED:
+      return {
+        ...state,
+        isLoading: false,
+        currentUser: null,
+        error: "401: Unauthorised..."
+      };
+
+
     default:
       return state;
   }
