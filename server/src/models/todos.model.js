@@ -48,7 +48,6 @@ async function getAllActiveTodos(skip, limit) {
         .limit(limit);
 }
 
-
 module.exports = {
     getTodoById,
     upsertTodo,

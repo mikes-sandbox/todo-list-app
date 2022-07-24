@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-    httpCreateTodo,
+    httpUpsertTodo,
     httpDeleteTodo,
     httpDeleteManyTodos,
     httpGetAllActiveTodos
@@ -9,7 +9,7 @@ const {
 const todoRouter = express.Router();
 
 todoRouter.get('/', httpGetAllActiveTodos);
-todoRouter.post('/', httpCreateTodo);
+todoRouter.post('/', httpUpsertTodo);
 todoRouter.delete('/:id', httpDeleteTodo);
 todoRouter.post('/clear-completed', httpDeleteManyTodos);
 

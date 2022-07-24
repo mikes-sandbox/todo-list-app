@@ -1,10 +1,17 @@
 import TodoActionTypes from "./todo.types";
 import { EXAMPLE_TODOS } from "../../common/variables";
-import { addTodo, toggleTodoCompletion, deleteTodo, clearCompleted, updateTodo, todoSuccessfullyDeleted, clearCompletedSuccess } from "./todo.utils";
+import {
+    addTodo,
+    toggleTodoCompletion,
+    deleteTodo,
+    clearCompleted,
+    updateTodo,
+    todoSuccessfullyDeleted,
+} from "./todo.utils";
 
 
 const INITIAL_STATE = {
-    activeTodos: EXAMPLE_TODOS,
+    todos: EXAMPLE_TODOS,
 };
 
 
@@ -13,54 +20,53 @@ const todoReducer = (state = INITIAL_STATE, action) => {
         case TodoActionTypes.ADD_TODO_START:
             return {
                 ...state,
-                activeTodos: addTodo(state.activeTodos, action.payload)
+                todos: addTodo(state.todos, action.payload)
             };
 
         case TodoActionTypes.TOGGLE_TODO_COMPLETION_START:
             return {
                 ...state,
-                activeTodos: toggleTodoCompletion(state.activeTodos, action.payload)
+                todos: toggleTodoCompletion(state.todos, action.payload)
             };
 
-
+            
         case TodoActionTypes.DELETE_TODO_START:
             return {
                 ...state,
-                activeTodos: deleteTodo(state.activeTodos, action.payload),
+                todos: deleteTodo(state.todos, action.payload),
             };
 
         case TodoActionTypes.DELETE_TODO_SUCCESS:
             return {
                 ...state,
-                activeTodos: todoSuccessfullyDeleted(state.activeTodos, action.payload)
+                todos: todoSuccessfullyDeleted(state.todos, action.payload)
             };
 
 
         case TodoActionTypes.CLEAR_COMPLETED_START:
             return {
                 ...state,
-                activeTodos: clearCompleted(state.activeTodos),
+                todos: clearCompleted(state.todos),
             };
 
-        case TodoActionTypes.CLEAR_COMPLETED_SUCCESS:
+
+        case TodoActionTypes.MERGE_TODOS_SUCCESS:
             return {
                 ...state,
-                activeTodos: clearCompletedSuccess(state.activeTodos, action.payload)
+                todos: action.payload
             };
 
 
-        case TodoActionTypes.ADD_TODO_SUCCESS:
-        case TodoActionTypes.TOGGLE_TODO_COMPLETION_SUCCESS:
+        case TodoActionTypes.SAVE_TODO_SUCCESS:
             return {
                 ...state,
-                activeTodos: updateTodo(state.activeTodos, action.payload)
+                todos: updateTodo(state.todos, action.payload)
             };
-
 
         // case TodoActionTypes.ADD_TODO_FAILURE:
         //     return {
         //         ...state,
-        //         activeTodos: addTodo(state.activeTodos, action.payload)
+        //         todos: addTodo(state.todos, action.payload)
         //     };
 
 

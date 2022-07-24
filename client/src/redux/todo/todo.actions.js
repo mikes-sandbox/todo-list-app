@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import TodoActionTypes from "./todo.types";
 
+
 export const addTodoStart = todoString => ({
     type: TodoActionTypes.ADD_TODO_START,
     payload: {
@@ -9,26 +10,16 @@ export const addTodoStart = todoString => ({
         id: uuidv4(),
     }
 });
-export const addTodoSuccess = dbTodo => ({
-    type: TodoActionTypes.ADD_TODO_SUCCESS,
-    payload: dbTodo
-});
-export const addTodoFailure = errorMessage => ({
-    type: TodoActionTypes.ADD_TODO_FAILURE,
-    payload: errorMessage
-});
-
-
 export const toggleTodoCompletionStart = todo => ({
     type: TodoActionTypes.TOGGLE_TODO_COMPLETION_START,
     payload: todo
 });
-export const toggleTodoCompletionSuccess = dbTodo => ({
-    type: TodoActionTypes.TOGGLE_TODO_COMPLETION_SUCCESS,
+export const saveTodoSuccess = dbTodo => ({
+    type: TodoActionTypes.SAVE_TODO_SUCCESS,
     payload: dbTodo
 });
-export const toggleTodoCompletionFailure = errorMessage => ({
-    type: TodoActionTypes.TOGGLE_TODO_COMPLETION_FAILURE,
+export const saveTodoFailure = errorMessage => ({
+    type: TodoActionTypes.SAVE_TODO_FAILURE,
     payload: errorMessage
 });
 
@@ -50,11 +41,51 @@ export const deleteTodoFailure = errorMessage => ({
 export const clearCompletedStart = () => ({
     type: TodoActionTypes.CLEAR_COMPLETED_START,
 });
-export const clearCompletedSuccess = dbActiveTodos => ({
+export const clearCompletedSuccess = () => ({
     type: TodoActionTypes.CLEAR_COMPLETED_SUCCESS,
-    payload: dbActiveTodos
 });
 export const clearCompletedFailure = errorMessage => ({
     type: TodoActionTypes.CLEAR_COMPLETED_FAILURE,
     payload: errorMessage
 });
+
+
+export const getAllActiveTodosStart = () => ({
+    type: TodoActionTypes.GET_ALL_ACTIVE_TODOS_START,
+});
+export const getAllActiveTodosSuccess = dbTodos => ({
+    type: TodoActionTypes.GET_ALL_ACTIVE_TODOS_SUCCESS,
+    payload: dbTodos
+});
+export const getAllActiveTodosFailure = errorMessage => ({
+    type: TodoActionTypes.GET_ALL_ACTIVE_TODOS_FAILURE,
+    payload: errorMessage
+});
+
+
+export const mergeTodosStart = dbTodos => ({
+    type: TodoActionTypes.MERGE_TODOS_START,
+    payload: dbTodos
+});
+export const mergeTodosSuccess = mergedTodos => ({
+    type: TodoActionTypes.MERGE_TODOS_SUCCESS,
+    payload: mergedTodos
+});
+export const mergeTodosFailure = errorMessage => ({
+    type: TodoActionTypes.MERGE_TODOS_FAILURE,
+    payload: errorMessage
+});
+
+
+export const saveUnsavedTodosStart = () => ({
+    type: TodoActionTypes.SAVE_UNSAVED_TODOS_START,
+});
+export const saveUnsavedTodosSuccess = mergedTodos => ({
+    type: TodoActionTypes.SAVE_UNSAVED_TODOS_SUCCESS,
+    payload: mergedTodos
+});
+export const saveUnsavedTodosFailure = errorMessage => ({
+    type: TodoActionTypes.SAVE_UNSAVED_TODOS_FAILURE,
+    payload: errorMessage
+});
+

@@ -15,12 +15,19 @@ function isTodoValid(todo) {
     return true;
 }
 
-async function httpCreateTodo(req, res) {
+async function httpUpsertTodo(req, res) {
     const todo = req.body;
 
     if (!isTodoValid(todo)) {
         return res.status(400).json({
             error: 'Missing required todo property',
+        });
+    }
+
+    const existingTodo = await getTodoById(todo.id);
+    if (existingTodo && existingTodo.dateModified > todo.dateModified) {
+        return res.status(400).json({
+            error: 'Newer version of todo already exists',
         });
     }
 
@@ -57,7 +64,7 @@ async function httpDeleteManyTodos(req, res) {
     const deleted = await deleteManyTodos(todoIdArr);
     if (!deleted) {
         return res.status(400).json({
-            error: 'Launch not aborted',
+            error: 'Failure bulk deleting todos',
         });
     }
 
@@ -71,7 +78,7 @@ async function httpGetAllActiveTodos(req, res) {
 }
 
 module.exports = {
-    httpCreateTodo,
+    httpUpsertTodo,
     httpDeleteTodo,
     httpDeleteManyTodos,
     httpGetAllActiveTodos

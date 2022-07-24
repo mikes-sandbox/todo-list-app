@@ -1,5 +1,4 @@
 export const addTodo = (todoList, todo) => {
-
     return [...todoList, Object.assign({
         completed: false,
         dateModified: new Date().valueOf(),
@@ -50,18 +49,4 @@ export const clearCompleted = (todoList) => {
                 dateModified: new Date().valueOf()
             } : todo
     );
-};
-
-export const clearCompletedSuccess = (currentTodoList, dbActiveTodos) => {
-    const dbTodos = structuredClone(dbActiveTodos);
-
-    // If todo is only stored locally and isnt deleted, preserve it
-    // Not concerned about preserving todo order yet.
-    currentTodoList.forEach(todo => {
-        if (!todo._id && !todo.isDeleted) {
-            dbTodos.push(todo);
-        }
-    });
-
-    return dbTodos;
 };

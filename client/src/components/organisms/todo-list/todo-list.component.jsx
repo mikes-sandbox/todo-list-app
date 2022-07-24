@@ -5,18 +5,22 @@ import { createStructuredSelector } from 'reselect';
 import './todo-list.styles.scss';
 import { FILTERS } from '../../../common/variables';
 import Todo from '../../molecules/todo/todo.component';
-import { selectTodoList } from '../../../redux/todo/todo.selectors';
-import { clearCompletedStart } from '../../../redux/todo/todo.actions';
+import { selectActiveTodos } from '../../../redux/todo/todo.selectors';
+import { clearCompletedStart, getAllActiveTodosStart } from '../../../redux/todo/todo.actions';
 
 
-const TodoList = ({ todoList, clearCompletedStart }) => {
+const TodoList = ({ isLoading, todoList, getAllActiveTodosStart, clearCompletedStart }) => {
 
     const [filter, setFilter] = useState(FILTERS.ALL);
     const [filteredTodos, setfilteredTodos] = useState([]);
-    const [itemsLeft, setItemsLeft] = useState(0);
+    const [itemsLeft, setItemsLeft] = useState(0); // TODO: change to memoized value instead of derived state
 
     useEffect(() => {
-        setfilteredTodos(filterTodos(filter, todoList));
+        getAllActiveTodosStart();
+    }, [getAllActiveTodosStart]);
+
+    useEffect(() => {
+        setfilteredTodos(filterTodos(todoList, filter));
         setItemsLeft(todoList.filter((todo) => !todo.completed).length);
     }, [filter, todoList]);
 
@@ -55,12 +59,13 @@ const TodoList = ({ todoList, clearCompletedStart }) => {
 
             </div>
 
+
         </div>
 
     );
 };
 
-const filterTodos = (filter, todoList) => {
+const filterTodos = (todoList, filter) => {
     switch (filter) {
         case FILTERS.ACTIVE:
             return todoList.filter(todo => { return !todo.completed; });
@@ -72,11 +77,12 @@ const filterTodos = (filter, todoList) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    todoList: selectTodoList,
+    todoList: selectActiveTodos,
 });
 
 const mapDispatchToProps = dispatch => ({
-    clearCompletedStart: () => dispatch(clearCompletedStart())
+    getAllActiveTodosStart: () => dispatch(getAllActiveTodosStart()),
+    clearCompletedStart: () => dispatch(clearCompletedStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

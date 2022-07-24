@@ -25,3 +25,11 @@ export async function httpDeleteManyTodos(todoIdArray) {
     );
     return response.data;
 }
+
+export async function httpGetAllActiveTodos() {
+    const response = await axios.get(
+        `${BASE_API_URL}/todo`, {
+        withCredentials: true
+    });
+    return response.data;
+}

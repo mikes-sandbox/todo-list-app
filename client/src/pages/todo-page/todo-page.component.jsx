@@ -9,6 +9,7 @@ import TodoList from '../../components/organisms/todo-list/todo-list.component';
 
 const TodoPage = ({ addTodoStart }) => {
 
+  const [isLoading, setIsLoading] = useState(true);
   const [newTodoString, setNewTodoString] = useState("");
 
   const handleSubmit = async (event) => {
@@ -26,7 +27,8 @@ const TodoPage = ({ addTodoStart }) => {
           value={newTodoString}
           handleChange={event => setNewTodoString(event.target.value)}
         />
-        <TodoList />
+        <TodoList
+          isLoading />
       </form>
 
       <div className="footer">
