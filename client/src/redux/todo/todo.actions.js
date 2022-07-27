@@ -88,3 +88,6 @@ export const saveUnsavedTodosFailure = errorMessage => ({
     payload: errorMessage
 });
 
+export const purgeTodos = () => ({
+    type: TodoActionTypes.PURGE_TODOS,
+});

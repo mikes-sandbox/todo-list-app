@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectAllThemes, selectActiveThemeIndex } from '../../redux/ui/ui.selectors';
+import ReactTooltip from 'react-tooltip';
 
 import UserButton from "../../components/atoms/user-button/user-button.component";
 import ThemeButton from "../../components/atoms/theme-button/theme-button.component";
@@ -60,6 +61,8 @@ const RootPage = ({ themes, activeThemeIndex }) => {
                     </Router>
                 </ErrorBoundary>
             </main>
+
+            <ReactTooltip />
         </div>
     );
 };

@@ -1,16 +1,18 @@
 # Todo List App
 
-This is a simple full-stack solution to the [Todo app challenge](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW) on Frontend Mentor, with a distinct focus on offline support. Feel free to fork this project and use any elements you find useful.
+This is a simple full-stack solution to the [Todo app challenge](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW) on Frontend Mentor, with a distinct focus on offline support. 
+
+Feel free to fork this project and use any elements you find useful.
 
 ## Table of contents
-  - [Project goals](#project-goals)
+  - [Project Goals](#project-goals)
   - [What We're Building](#what-were-building)
     - [Functionality](#functionality)
-  - [Technical details](#technical-details)
+  - [Technical Details](#technical-details)
     - [Front-end (ReactJS)](#front-end-reactjs)
     - [Back-end (NodeJS)](#back-end-nodejs)
     - [DevOps](#devops)
-  - [Continued Development](#continued-development)
+    - [Continued Development](#continued-development)
   - [Links](#links)
   - [Author](#author)
 
@@ -39,7 +41,7 @@ The following functionality has been implemented:
 - Filter by all/active/complete todos
 - Clear all completed todos
 - Toggle light and dark mode
-- Complete offline support & PWA functionality
+- Offline support & PWA functionality
 
 ## Technical details
 
@@ -75,10 +77,9 @@ The following functionality has been implemented:
 - Individual GCP environments for Production & Development branches
 - Secret management ([Google Secret manager](https://cloud.google.com/secret-manager))
 
-## Continued Development
+### Future Development
 
 Future functionality to implement:
-
 - Drag and drop to reorder items on the list
 - Guest mode
 
@@ -90,4 +91,5 @@ Future functionality to implement:
 ## Author
 
 - LinkedIn - [Michael Pepper](https://www.linkedin.com/in/im-michael-pepper/)
-- Email - [Here](im.michael.pepper@gmail.com)
+- Email - <im.michael.pepper@gmail.com>
+

@@ -40,6 +40,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: "401: Unauthorised..."
       };
 
+    case UserActionTypes.SIGN_OUT_START:
+      return {
+        ...state,
+        isLoading: false,
+        currentUser: null,
+        error: null
+      };
+
+    case UserActionTypes.SIGN_OUT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
+
 
     default:
       return state;

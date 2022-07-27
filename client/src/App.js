@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 
 import './App.scss';
 import RootPageContainer from './pages/root-page/root-page.container';
-
 import { checkUserSession } from './redux/user/user.actions';
 import { selectActiveTheme } from './redux/ui/ui.selectors';
 

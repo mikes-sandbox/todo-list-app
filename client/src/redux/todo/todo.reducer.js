@@ -62,6 +62,12 @@ const todoReducer = (state = INITIAL_STATE, action) => {
                 todos: updateTodo(state.todos, action.payload)
             };
 
+        case TodoActionTypes.PURGE_TODOS:
+            return {
+                ...state,
+                todos: []
+            };
+
         // case TodoActionTypes.ADD_TODO_FAILURE:
         //     return {
         //         ...state,

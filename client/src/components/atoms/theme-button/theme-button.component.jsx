@@ -6,7 +6,7 @@ import { changeTheme } from '../../../redux/ui/ui.actions';
 import './theme-button.styles.scss';
 
 const ThemeButton = ({ changeTheme, iconPath }) => (
-  <button onClick={changeTheme}>
+  <button onClick={changeTheme} data-tip="Toggle theme">
     <img src={iconPath} alt="" className='bg-img' />
   </button>
 );
