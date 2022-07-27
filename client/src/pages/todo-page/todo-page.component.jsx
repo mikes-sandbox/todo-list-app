@@ -6,7 +6,6 @@ import { addTodoStart } from "../../redux/todo/todo.actions";
 import TodoInput from "../../components/atoms/todo-input/todo-input.component";
 import TodoList from '../../components/organisms/todo-list/todo-list.component';
 
-
 const TodoPage = ({ addTodoStart }) => {
 
   const [newTodoString, setNewTodoString] = useState("");
@@ -31,7 +30,7 @@ const TodoPage = ({ addTodoStart }) => {
       </form>
 
       <div className="footer">
-        <p className="footer__note">Drag and drop to reorder list.</p>
+        <p className="footer__note">Coming Soon: Drag and drop to reorder list.</p>
       </div>
     </div>
   );
