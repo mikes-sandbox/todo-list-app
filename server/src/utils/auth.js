@@ -42,6 +42,7 @@ passport.deserializeUser((userProfile, done) => {
 function authenticateGoogle(req, res, next) {
     passport.authenticate('google', {
         scope: ['email', 'profile'],
+        prompt: "select_account"
     })(req, res, next);
 }
 
@@ -65,7 +66,14 @@ function isAuthenticated(req, res, next) {
 }
 
 module.exports = {
-    helmet: helmet(),
+    helmet: helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                "img-src": ["'self'", "https: data:"]
+            }
+        }
+    }),
     cookieSession: cookieSession({
         name: 'session',
         maxAge: 5 * 60 * 1000,
