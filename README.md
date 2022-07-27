@@ -4,6 +4,12 @@ This is a simple full-stack solution to the [Todo app challenge](https://www.fro
 
 Feel free to fork this project and use any elements you find useful.
 
+### Live Demos
+
+- [Development Site](https://todo-app-development-image-o3f7zte4sq-nw.a.run.app/login)
+- [Production Site](https://todo-app-production-image-poluyjy66a-nw.a.run.app/login)
+
+--- 
 ## Table of contents
   - [Project Goals](#project-goals)
   - [What We're Building](#what-were-building)
@@ -11,9 +17,8 @@ Feel free to fork this project and use any elements you find useful.
   - [Technical Details](#technical-details)
     - [Front-end (ReactJS)](#front-end-reactjs)
     - [Back-end (NodeJS)](#back-end-nodejs)
-    - [DevOps](#devops)
+    - [DevOps & Infrastructure](#devops)
     - [Continued Development](#continued-development)
-  - [Links](#links)
   - [Author](#author)
 
 ## Project Goals
@@ -69,7 +74,7 @@ The following functionality has been implemented:
 - Authentication based routing
 - NoSQL DB (MongoDB/Mongoose)
 
-### DevOps
+### DevOps & Infrastructure
 
 - Containerisation ([Docker](https://www.docker.com/))
 - CI/CD pipelines ([GitHub Actions](https://github.com/features/actions))
@@ -82,11 +87,6 @@ The following functionality has been implemented:
 Future functionality to implement:
 - Drag and drop to reorder items on the list
 - Guest mode
-
-## Links
-
-- [Development Site](https://todo-app-development-image-o3f7zte4sq-nw.a.run.app/login)
-- [Production Site](https://todo-app-production-image-poluyjy66a-nw.a.run.app/login)
 
 ## Author
 
