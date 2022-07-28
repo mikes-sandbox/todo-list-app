@@ -24,8 +24,8 @@ export const EXAMPLE_TODOS = [
     },
     {
         id: uuidv4(),
-        completed: false,
-        name: "Store todo's in Firestore",
+        completed: true,
+        name: "Store todo's in MongoDB",
         dateModified: new Date().valueOf(),
         isDeleted: false
     },
@@ -39,28 +39,28 @@ export const EXAMPLE_TODOS = [
     {
         id: uuidv4(),
         completed: true,
-        name: "Retrieve user information from firestore",
+        name: "Store & Retrieve user information from MongoDB",
         dateModified: new Date().valueOf(),
         isDeleted: false
     },
     {
         id: uuidv4(),
         completed: true,
-        name: "Add Google login functionality",
+        name: "Add Google OAuth functionality",
         dateModified: new Date().valueOf(),
         isDeleted: false
     },
     {
         id: uuidv4(),
         completed: true,
-        name: "Implement themes with CSS variables",
+        name: "Implement themeing with CSS variables",
         dateModified: new Date().valueOf(),
         isDeleted: false
     },
     {
         id: uuidv4(),
         completed: true,
-        name: "Implement filtering, clear completed & item's left",
+        name: "Implement filtering & clear completed",
         dateModified: new Date().valueOf(),
         isDeleted: false
     },
