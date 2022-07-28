@@ -23,7 +23,7 @@ const Todo = ({ todo, deleteTodoStart, toggleTodoCompletionStart }) => (
                     <IconCheck className='icon-check'></IconCheck>
                 </span>
             </span>
-            <span className="todo--label">{todo.name}{todo._id ? ' - [SAVED]' : ''}</span>
+            <span className="todo--label">{todo.name}</span>
         </label>
 
         <button className="todo--close"

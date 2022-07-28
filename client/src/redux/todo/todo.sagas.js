@@ -115,7 +115,7 @@ export function* mergeTodos(mergeTodosAction) {
 
 export function* saveUnsavedTodos() {
     const unsavedTodos = yield select(selectUnsavedTodos);
-    console.log("Saving: ", unsavedTodos);
+
     try {
         yield all(unsavedTodos.map(todo => call(saveTodo, { payload: todo })));
         yield put(saveUnsavedTodosSuccess());

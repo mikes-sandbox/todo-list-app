@@ -1,3 +1,4 @@
+import { EXAMPLE_TODOS } from "../../common/variables";
 import TodoActionTypes from "./todo.types";
 import {
     addTodo,
@@ -10,7 +11,7 @@ import {
 
 
 const INITIAL_STATE = {
-    todos: [],
+    todos: EXAMPLE_TODOS,
 };
 
 
