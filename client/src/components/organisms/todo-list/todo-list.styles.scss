@@ -48,7 +48,6 @@
     }
 
     .filter-options {
-      transition: background 1s;
 
       .filter {
         font-family: var(--default-fonts);
@@ -76,7 +75,7 @@
         left: 0;
         height: 4.8rem;
         box-shadow: var(--box-shadow);
-        transition: box-shadow 1s;
+        transition: background 1s, box-shadow 1s;
         margin-bottom: 4.8rem;
       }
     }

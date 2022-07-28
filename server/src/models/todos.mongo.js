@@ -4,6 +4,11 @@ const todosSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true,
+        unique: true 
+    },
+    userId: {
+        type: String,
+        required: true,
     },
     name: {
         type: String,

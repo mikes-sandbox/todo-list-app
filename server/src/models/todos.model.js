@@ -13,6 +13,7 @@ async function getTodoById(id) {
 async function upsertTodo(todo) {
     const dbTodo = await todosDatabase.findOneAndUpdate({
         id: todo.id,
+        userId: todo.userId
     }, todo, {
         upsert: true,
         new: true
@@ -20,19 +21,20 @@ async function upsertTodo(todo) {
     return dbTodo;
 }
 
-async function deleteTodoById(todoId) {
+async function deleteTodoById(todoId, userId) {
     const deleteResponse = await todosDatabase.updateOne({
         id: todoId,
+        userId
     }, {
         isDeleted: true,
     });
-
     return deleteResponse.acknowledged;
 }
 
-async function deleteManyTodos(todoIdArr) {
+async function deleteManyTodos(todoIdArr, userId) {
     const deleteResponse = await todosDatabase.updateMany({
         id: { "$in": todoIdArr },
+        userId
     }, {
         isDeleted: true,
     });
@@ -40,9 +42,12 @@ async function deleteManyTodos(todoIdArr) {
     return deleteResponse.acknowledged;
 }
 
-async function getAllActiveTodos(skip, limit) {
+async function getAllActiveTodos(userId, skip, limit) {
     return await todosDatabase
-        .find({ isDeleted: false }, {})
+        .find({
+            userId,
+            isDeleted: false
+        }, {})
         // .sort({})
         .skip(skip)
         .limit(limit);
