@@ -48,7 +48,7 @@ The following functionality has been implemented:
 - Filter by all/active/complete todos
 - Clear all completed todos
 - Toggle light and dark mode
-- Offline support & PWA functionality
+- Offline support 
 
 ## Technical details
 
