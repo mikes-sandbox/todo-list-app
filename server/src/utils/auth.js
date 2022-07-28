@@ -1,3 +1,5 @@
+// File to setup and export passport, helmet config etc.
+
 const helmet = require('helmet');
 const passport = require('passport');
 const Strategy = require('passport-google-oauth20').Strategy;
@@ -12,7 +14,6 @@ const config = {
     COOKIE_KEY_2,
 } = require('../utils/get-secrets')();
 
-
 const AUTH_OPTIONS = {
     callbackURL: `${AUTH_SERVER}/api/v1/auth/google/callback`,
     clientID: config.CLIENT_ID,
@@ -20,7 +21,7 @@ const AUTH_OPTIONS = {
 };
 
 async function verifyCallback(accessToken, refreshToken, profile, done) {
-    const dbUser = await storeUser(profile);
+    await storeUser(profile);
     return done(null, profile);
 }
 

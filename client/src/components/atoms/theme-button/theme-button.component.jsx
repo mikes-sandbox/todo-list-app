@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { changeTheme } from '../../../redux/ui/ui.actions';
-
 import './theme-button.styles.scss';
+import { changeTheme } from '../../../redux/ui/ui.actions';
 
 const ThemeButton = ({ changeTheme, iconPath }) => (
   <button onClick={changeTheme} data-tip="Toggle theme">

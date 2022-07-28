@@ -24,6 +24,7 @@ async function httpUpsertTodo(req, res) {
         });
     }
 
+    // If updating existing todo but not owner, throw bad request
     const existingTodo = await getTodoById(todo.id);
     if (existingTodo && existingTodo.userId !== req.user.id) {
         return res.status(400).json({
@@ -31,6 +32,7 @@ async function httpUpsertTodo(req, res) {
         });
     }
 
+    // If newer version of todo in DB, ignore update
     if (existingTodo && existingTodo.dateModified > todo.dateModified) {
         return res.status(400).json({
             error: 'Newer version of todo already exists',
@@ -74,6 +76,7 @@ async function httpDeleteManyTodos(req, res) {
 async function httpGetAllActiveTodos(req, res) {
     const userId = req.user.id;
     const { skip, limit } = getPagination(req.query);
+
     const todos = await getAllActiveTodos(userId, skip, limit);
     return res.status(200).json(todos);
 }

@@ -1,5 +1,6 @@
 @import "../../common/variables.scss";
 
+// TODO: Clean up - Likely some suboptimal structure/repetition of properties here
 .login-card {
   background: var(--color-surface);
   border-radius: var(--border-radius);

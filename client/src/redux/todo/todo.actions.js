@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import TodoActionTypes from "./todo.types";
 
-
 export const addTodoStart = todoString => ({
     type: TodoActionTypes.ADD_TODO_START,
     payload: {
@@ -87,6 +86,7 @@ export const saveUnsavedTodosFailure = errorMessage => ({
     type: TodoActionTypes.SAVE_UNSAVED_TODOS_FAILURE,
     payload: errorMessage
 });
+
 
 export const purgeTodos = () => ({
     type: TodoActionTypes.PURGE_TODOS,

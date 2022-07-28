@@ -1,8 +1,5 @@
-// import request from 'request';
-// import { BASE_API_URL } from '../common/config';
 import request from '../common/request';
 
-// todo if 401, redirect to login screen
 export async function httpUpsertTodo(todo) {
     const response = await request.post(
         `/todo`,

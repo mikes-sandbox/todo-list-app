@@ -29,7 +29,6 @@ const todoReducer = (state = INITIAL_STATE, action) => {
                 todos: toggleTodoCompletion(state.todos, action.payload)
             };
 
-
         case TodoActionTypes.DELETE_TODO_START:
             return {
                 ...state,
@@ -42,20 +41,17 @@ const todoReducer = (state = INITIAL_STATE, action) => {
                 todos: todoSuccessfullyDeleted(state.todos, action.payload)
             };
 
-
         case TodoActionTypes.CLEAR_COMPLETED_START:
             return {
                 ...state,
                 todos: clearCompleted(state.todos),
             };
 
-
         case TodoActionTypes.MERGE_TODOS_SUCCESS:
             return {
                 ...state,
                 todos: action.payload
             };
-
 
         case TodoActionTypes.SAVE_TODO_SUCCESS:
             return {
@@ -68,13 +64,6 @@ const todoReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 todos: []
             };
-
-        // case TodoActionTypes.ADD_TODO_FAILURE:
-        //     return {
-        //         ...state,
-        //         todos: addTodo(state.todos, action.payload)
-        //     };
-
 
         default:
             return state;

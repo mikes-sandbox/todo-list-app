@@ -3,17 +3,14 @@ const {
     upsertUser
 } = require('../../models/users.model');
 
-const {
-    getPagination,
-} = require('../../utils/query');
+const { getPagination } = require('../../utils/query');
 
 // TODO
 function isUserValid(user) {
     return true;
 }
 
-
-// Used by oath verifyCallback to upsert user in DB from cookie
+// Used by OAuth verifyCallback to upsert user in DB from cookie
 async function storeUser(userProfile) {
     if (!isUserValid(userProfile)) {
         // TODO

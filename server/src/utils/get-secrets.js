@@ -1,4 +1,3 @@
-
 // loads secrets from CONFIG.SECRETS_PATH
 
 const { SECRETS_PATH } = require('./config.js');

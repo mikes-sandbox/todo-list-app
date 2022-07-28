@@ -1,5 +1,6 @@
 
 // Retrieve last known theme from localStorage and add to body classList.
+// Need standalone function in order to append class before first render
 // Note: persisted store values are stringified
 export const initialiseTheme = () => {
     try {

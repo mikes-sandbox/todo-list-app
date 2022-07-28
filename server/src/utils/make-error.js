@@ -1,4 +1,3 @@
-
 function makeError(errCode, errMsg, additionalData) {
 
     const errorResponse = {

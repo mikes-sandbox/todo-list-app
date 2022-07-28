@@ -8,7 +8,6 @@ import lightThemeLargeImg from '../../assets/bg-desktop-light.jpg';
 import lightThemeSmallImg from '../../assets/bg-mobile-light.jpg';
 import lightThemeIcon from '../../assets/icon-sun.svg';
 
-
 export const UI_THEMES = [
     {
         className: 'light-theme',
@@ -23,6 +22,7 @@ export const UI_THEMES = [
         iconPath: darkThemeIcon
     },
 ];
+
 
 const INITIAL_STATE = {
     themes: UI_THEMES,

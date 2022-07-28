@@ -14,7 +14,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
         isLoading: false
       };
 
-
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
@@ -23,14 +22,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null
       };
 
-
     case UserActionTypes.SIGN_IN_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.payload
       };
-
 
     case UserActionTypes.USER_UNAUTHORISED:
       return {

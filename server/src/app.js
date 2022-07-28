@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
-
 const auth = require('./utils/auth');
 const apiRouter = require('./routes/api');
 const makeError = require('./utils/make-error');
@@ -28,7 +27,6 @@ app.use('/api/v1', apiRouter);
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
-
 
 // route error handling:
 app.use((err, req, res, next) => {
