@@ -27,9 +27,11 @@ The goal of this project was to:
 
 1. Deliver a full-stack application that implements the functionality outlined in the UI spec.
 2. Demonstrate optimistic UI principles with async/offline event handlers.
-3. Demonstrate a project setup that's scalable and mirrors my approach to production systems.
-4. Minimise the usage of pre-built UI components/libraries to demonstrate how to simply and scalably maintain a front-end project. 
+3. Demonstrate a project setup that's scalable and mirrors a production ready approach.
+4. Minimise the usage of pre-built UI components/libraries to demonstrate how to simply maintain a front-end project. 
 5. Minimise the usage of common Backend-as-a-Service tools that often obfuscate the inner workings of full stack applications e.g. [Firebase](https://firebase.google.com/), and rather implement basic versions of the core components.
+
+> ℹ️ Note: To limit scope, I have not focused on intermediate state transitions & loaders.
 
 ## What We're Building
 
